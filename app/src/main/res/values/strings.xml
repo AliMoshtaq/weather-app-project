@@ -1,0 +1,76 @@
+<resources>
+    <string name="app_name">Weather App</string>
+    <!--    Title String   -->
+    <string name="palermo_sic">%s, %s</string>
+    <!--    Subtitle String  -->
+    <string name="next_five_days">%s</string>
+    <!-- Forecast_item_Strings -->
+    <string name="tv_today">Today</string>
+    <string name="tv_grade_min">%d\u00B0</string>
+    <string name="tv_grade_max">%d\u00B0</string>
+    <string name="tv_kmh">%d km/h</string>
+    <string name="tv_min">min</string>
+    <string name="tv_max">max</string>
+    <string name="tv_precip">Precip</string>
+    <string name="tv_wind">wind</string>
+    <string name="tv_date">%d/%d</string>
+    <string name="tv_precip_num">%d%%</string>
+    <string name="icon_holder">Icon Holder</string>
+    <!--  Bottom_nav_Strings -->
+    <string name="search">Search</string>
+    <string name="icon_home">Home</string>
+    <string name="icon_today">Today</string>
+    <string name="icon_tomorrow">Tomorrow</string>
+    <string name="icon_date">11</string>
+    <!--  Daily strings  -->
+    <string name="daily_humidity_text">Humidity</string>
+    <string name="daily_hour_second">%d:00</string>
+    <string name="daily_wind_speed">%s %d Km/h</string>
+    <string name="daily_coverage_grade">%d%%</string>
+    <string name="daily_rain_grade">%d mm</string>
+    <string name="daily_hourly_date">%d/%d</string>
+    <string name="daily_precipitation_grade">%d\u00B0 </string>
+    <string name="daily_cloud_cover">Cloud cover</string>
+    <string name="daily_perceived">Perceived</string>
+    <string name="daily_humidity_percent">%d%%</string>
+    <string name="daily_date">%s  %d  %s</string>
+    <string name="daily_situation">Today</string>
+    <string name="daily_temp_grade">%d\u00B0</string>
+    <string name="daily_humidity_grade">%d%%</string>
+    <string name="daily_coverage_text">Coverage</string>
+    <string name="daily_rain_text">Rain</string>
+    <string name="daily_wind_text">Wind</string>
+    <string name="daily_cloudCover_grade">%d%%</string>
+    <string name="sunny">%s</string>
+    <string name="daily_description_text">%s</string>
+
+    <!--    Daily hourly item-->
+    <string name="txt_no_result">No result found</string>
+    <string name="label_search_hint">Enter Location</string>
+    <string name="text_added">Added</string>
+    <string name="desc_add_city">addCity</string>
+    <string name="degree_celsius_symbol_with_temp2">32°C</string>
+    <string name="desc_delete">Delete item</string>
+    <string name="desc_back">backStack</string>
+    <string name="error_scr_text">There is a problem with your network connection, please check connection and try again!</string>
+    <string name="btn_try_again_error_page">Try again</string>
+
+    <string name="dialog_message">Are you sure for to exit?</string>
+    <string name="dialog_positive">OK</string>
+    <string name="dialog_negative">dismiss</string>
+    <string name="dialog_quit">Exit</string>
+    <string name="icon_arrow">Icon arrow</string>
+    <string name="daily_bottom_line">DailyBottomLine</string>
+
+    // search
+    <string name="search_item_city">%s</string>
+    <string name="search_item_tempGrade">%d°</string>
+    <string name="search_temp_description">%s</string>
+    <string name="search_recent_search">Recent search</string>
+    <string name="bottom_menu_date">%d</string>
+    <string name="addCity_button">add City</string>
+    <string name="tv_city_name">%s</string>
+    <string name="tv_region_name">%s</string>
+
+
+</resources>

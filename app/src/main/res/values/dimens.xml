@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  Subtitle  -->
+    <dimen name="subtitle_text_size">16sp</dimen>
+    <dimen name="subtitle_layout_margin_top">45dp</dimen>
+    <dimen name="subtitle_layout_margin_start">35dp</dimen>
+    <dimen name="subtitle_layout_margin_bottom">5dp</dimen>
+    <!--  Title  -->
+    <dimen name="title_layout_margin_top">42dp</dimen>
+    <dimen name="title_layout_margin_start">24dp</dimen>
+    <dimen name="title_text_size">32sp</dimen>
+    <!--  forecast items  -->
+    <dimen name="forecast_layout_height">155dp</dimen>
+    <dimen name="forecast_layout_marginHorizontal">24dp</dimen>
+    <dimen name="forecast_layout_marginTop">10dp</dimen>
+    <!--  tv days  -->
+    <dimen name="forecast_days_marginTop">18dp</dimen>
+    <dimen name="forecast_days_marginStart">18dp</dimen>
+    <dimen name="forecast_days_textSize">22sp</dimen>
+    <!--  tv gradeMin  -->
+    <dimen name="forecast_gradeMin_marginTop">18dp</dimen>
+    <dimen name="forecast_gradeMin_marginStart">152dp</dimen>
+    <dimen name="big_textSize">18sp</dimen>
+    <!--  tv gradeMax  -->
+    <dimen name="forecast_gradeMax_marginTop">18dp</dimen>
+    <dimen name="forecast_gradeMax_marginStart">254dp</dimen>
+    <!--  tv precipitation  -->
+    <dimen name="forecast_precipitation_marginTop">88dp</dimen>
+    <dimen name="forecast_precipitation_marginStart">152dp</dimen>
+    <!--  tv speed  -->
+    <dimen name="forecast_speed_marginTop">88dp</dimen>
+    <dimen name="forecast_speed_marginStart">254dp</dimen>
+    <!--  tv speed  -->
+    <dimen name="forecast_min_marginTop">46dp</dimen>
+    <dimen name="forecast_min_marginStart">152dp</dimen>
+    <dimen name="small_textSize">15sp</dimen>
+    <!--  tv min  -->
+    <dimen name="forecast_max_marginTop">46dp</dimen>
+    <dimen name="forecast_max_marginStart">254dp</dimen>
+    <!--  tv precipitation text  -->
+    <dimen name="forecast_precipitationTxt_marginTop">116dp</dimen>
+    <dimen name="forecast_precipitationTxt_marginStart">152dp</dimen>
+    <!--  tv wind text  -->
+    <dimen name="forecast_windTxt_marginTop">117dp</dimen>
+    <dimen name="forecast_windTxt_marginStart">256dp</dimen>
+    <!--  tv date  -->
+    <dimen name="forecast_date_marginTop">50dp</dimen>
+    <dimen name="forecast_date_marginStart">20dp</dimen>
+    <!--  tv date  -->
+    <dimen name="forecast_icon_marginTop">86dp</dimen>
+    <dimen name="forecast_icon_marginStart">18dp</dimen>
+    <!--  Bottom Navigation  -->
+</resources>

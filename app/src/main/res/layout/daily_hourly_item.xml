@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/day_hourly_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:id="@+id/day_hour2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="19dp"
+        android:fontFamily="@font/inter"
+        android:text="@string/daily_hour_second"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/daily_icon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="102dp"
+        android:layout_marginTop="16.84dp"
+        android:contentDescription="@string/icon_holder"
+        android:src="@drawable/ic_fluent_moon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/day_grade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="168dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/inter"
+        android:text="@string/daily_temp_grade"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/day_icon_drop"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="24.25dp"
+        android:layout_marginEnd="140dp"
+        android:contentDescription="@string/icon_holder"
+        android:src="@drawable/ic_fluent_drop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/day_humidity_grade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="86dp"
+        android:fontFamily="@font/inter"
+        android:text="@string/daily_humidity_percent"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/arrow_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="30dp"
+        android:contentDescription="@string/icon_arrow"
+        android:src="@drawable/ic_arrow_expand"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/daily_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="213dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="26dp"
+        android:visibility="gone"
+        android:background="@drawable/bg_daily_screen_hf"
+        android:elevation="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/day_grade">
+
+        <TextView
+            android:id="@+id/dailyCard_precipitationTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:fontFamily="@font/inter"
+            android:text="@string/daily_perceived"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/dailyCard_uv_indexTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="198dp"
+            android:layout_marginTop="18dp"
+            android:fontFamily="@font/inter"
+            android:text="@string/daily_cloud_cover"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/dailyCard_precipitation_grade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="37dp"
+            android:fontFamily="@font/inter"
+            android:text="@string/daily_precipitation_grade"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/dailyCard_uv_IndexGrade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="198dp"
+            android:layout_marginTop="37dp"
+            android:fontFamily="@font/inter"
+            android:text="@string/daily_cloudCover_grade"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.6dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="18.5dp"
+            android:background="#ABA4FF"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/dailyCard_humidityTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="84dp"
+            android:fontFamily="@font/inter"
+            android:text="@string/daily_humidity_text"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/dailyCard_windTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="198dp"
+            android:layout_marginTop="84dp"
+            android:fontFamily="@font/inter"
+            android:text="@string/tv_wind"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/dailyCard_humidity_grade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="106dp"
+            android:fontFamily="@font/inter"
+            android:text="@string/daily_humidity_grade"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/dailyCard_wind_speedGrade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="198dp"
+            android:layout_marginTop="106dp"
+            android:fontFamily="@font/inter"
+            android:text="@string/daily_wind_speed"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.6dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="18.5dp"
+            android:layout_marginBottom="69dp"
+            android:background="#ABA4FF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/dailyCard_coverageTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="153dp"
+            android:fontFamily="@font/inter"
+            android:text="@string/daily_coverage_text"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/dailyCard_rainTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="198dp"
+            android:layout_marginTop="153dp"
+            android:fontFamily="@font/inter"
+            android:text="@string/daily_rain_text"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/dailyCard_coverage_Grade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="175dp"
+            android:fontFamily="@font/inter"
+            android:text="@string/daily_coverage_grade"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/dailyCard_rain_grade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="198dp"
+            android:layout_marginTop="175dp"
+            android:fontFamily="@font/inter"
+            android:text="@string/daily_rain_grade"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/bottom_line"
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:layout_marginTop="15dp"
+        android:background="#ABA4FF"
+        app:layout_constraintTop_toBottomOf="@+id/daily_card_view"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

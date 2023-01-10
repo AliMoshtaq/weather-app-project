@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_grey"
+    tools:context=".ui.ui.fragments.SearchScrFragment">
+
+    <TextView
+        android:id="@+id/btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/inter"
+        android:text="@android:string/cancel"
+        android:textColor="@color/blue"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/sv_search_city"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/sv_search_city" />
+
+
+    <android.widget.SearchView
+        android:id="@+id/sv_search_city"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="79dp"
+        android:layout_marginEnd="18dp"
+        android:background="@drawable/bg_search_shape"
+        android:iconifiedByDefault="false"
+        android:queryBackground="@android:color/transparent"
+        android:queryHint="Enter Location"
+        android:transitionName="Enter Location"
+        app:layout_constraintEnd_toStartOf="@+id/btn_cancel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_searched_result"
+        android:layout_width="5dp"
+        android:layout_height="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sv_search_city" />
+
+        <TextView
+        android:id="@+id/tvRecentSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="22dp"
+        android:text="@string/search_recent_search"
+        android:textColor="@color/blue"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sv_search_city" />
+
+    <TextView
+        android:id="@+id/tv_no_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_no_result"
+        android:fontFamily="@font/inter"
+        android:textSize="16sp"
+        android:textColor="@color/blue"
+        android:visibility="gone"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sv_search_city" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

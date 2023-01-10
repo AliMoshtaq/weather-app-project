@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/subtitle_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/subtitle_layout_margin_start"
+    android:layout_marginTop="@dimen/subtitle_layout_margin_top"
+    android:layout_marginBottom="@dimen/subtitle_layout_margin_bottom">
+
+    <TextView
+        android:id="@+id/tv_subtitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter"
+        android:text="@string/next_five_days"
+        android:textColor="@color/white"
+        android:textSize="@dimen/subtitle_text_size"
+        android:textStyle="bold" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
