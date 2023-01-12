@@ -127,7 +127,7 @@ class SearchScrFragment : Fragment() {
         binding.tvNoResult.text = message
     }
     private fun navigateBack() {
-        val intent = Intent(context, MainActivity::class.java)
+        val intent = Intent(this.context, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
         (activity as MainActivity).startActivity(intent)
