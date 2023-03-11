@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:id="@+id/cl_parent"
-    tools:context=".ui.ui.fragments.SavedCityFragment">
+    tools:context=".view.SavedCityFragment">
 
     <include
         android:id="@+id/include"

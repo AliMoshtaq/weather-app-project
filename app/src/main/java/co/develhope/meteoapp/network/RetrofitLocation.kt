@@ -1,7 +1,7 @@
 package co.develhope.meteoapp.network
 
-import co.develhope.meteoapp.data.dataModel.Cities
-import co.develhope.meteoapp.utils.LOC_BASE_URL
+import co.develhope.meteoapp.interfaces.RetroServiceInterface
+import co.develhope.meteoapp.utility.LOC_BASE_URL
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -10,7 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-class RetrofitLocation {
+class RetrofitLocationInstance {
 
     companion object {
 
@@ -44,10 +44,5 @@ class RetrofitLocation {
         val apiService: RetroServiceInterface by lazy {
             retrofit.create(RetroServiceInterface::class.java)
         }
-
-//    suspend fun getLocationSummary(): List<Cities>{
-//        return apiService.getWeatherByLocation()
-//            .body()?.locationTransferObject?.map { locationTransferObject -> locationTransferObject.mapToDomain() }
-//            ?: emptyList()
     }
 }

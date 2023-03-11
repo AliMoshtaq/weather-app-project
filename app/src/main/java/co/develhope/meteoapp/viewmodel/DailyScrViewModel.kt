@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import co.develhope.meteoapp.data.ForecastModel
-import co.develhope.meteoapp.network.DailyApiState
+import co.develhope.meteoapp.model.ForecastModel
+import co.develhope.meteoapp.model.DailyApiState
 import co.develhope.meteoapp.network.RetrofitInstance
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

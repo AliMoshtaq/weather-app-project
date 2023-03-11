@@ -1,9 +1,10 @@
 package co.develhope.meteoapp.network
 
-import co.develhope.meteoapp.ui.ui.adapters.OffsetDateTimeCustomAdapter
-import co.develhope.meteoapp.data.dataModel.DailyForecast
-import co.develhope.meteoapp.data.dataModel.WeeklyCard
-import co.develhope.meteoapp.utils.FORECAST_BASE_URL
+import co.develhope.meteoapp.interfaces.RetroServiceInterface
+import co.develhope.meteoapp.utility.OffsetDateTimeCustomAdapter
+import co.develhope.meteoapp.model.DailyForecast
+import co.develhope.meteoapp.model.WeeklyCard
+import co.develhope.meteoapp.utility.FORECAST_BASE_URL
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
