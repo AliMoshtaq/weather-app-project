@@ -1,6 +1,6 @@
 package co.develhope.meteoapp.network
 
-import co.develhope.meteoapp.interfaces.RetroServiceInterface
+import co.develhope.meteoapp.network.interfaces.RetroServiceInterface
 import co.develhope.meteoapp.utility.OffsetDateTimeCustomAdapter
 import co.develhope.meteoapp.model.DailyForecast
 import co.develhope.meteoapp.model.WeeklyCard

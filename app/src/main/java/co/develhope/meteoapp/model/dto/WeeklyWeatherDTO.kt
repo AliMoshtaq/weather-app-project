@@ -1,5 +1,9 @@
-package co.develhope.meteoapp.model
+package co.develhope.meteoapp.model.dto
 
+import co.develhope.meteoapp.model.CurrentWeather
+import co.develhope.meteoapp.model.WeatherDescription
+import co.develhope.meteoapp.model.WeeklyCard
+import co.develhope.meteoapp.model.getWeatherDescription
 import org.threeten.bp.OffsetDateTime
 
 data class WeeklyWeatherDTO(

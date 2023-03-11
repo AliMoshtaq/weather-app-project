@@ -7,20 +7,6 @@
     android:background="@color/light_grey"
     tools:context=".view.SearchScrFragment">
 
-    <TextView
-        android:id="@+id/btn_cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/inter"
-        android:text="@android:string/cancel"
-        android:textColor="@color/blue"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/sv_search_city"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/sv_search_city" />
-
-
     <android.widget.SearchView
         android:id="@+id/sv_search_city"
         android:layout_width="0dp"
@@ -33,7 +19,7 @@
         android:queryBackground="@android:color/transparent"
         android:queryHint="Enter Location"
         android:transitionName="Enter Location"
-        app:layout_constraintEnd_toStartOf="@+id/btn_cancel"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 

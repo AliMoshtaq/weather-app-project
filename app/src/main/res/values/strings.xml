@@ -63,7 +63,7 @@
     <string name="daily_bottom_line">DailyBottomLine</string>
 
     // search
-    <string name="search_item_city">%s</string>
+    <string name="search_item_city">%s, %s</string>
     <string name="search_item_tempGrade">%d°</string>
     <string name="search_temp_description">%s</string>
     <string name="search_recent_search">Recent search</string>

@@ -1,7 +1,7 @@
-package co.develhope.meteoapp.interfaces
+package co.develhope.meteoapp.network.interfaces
 
-import co.develhope.meteoapp.model.DailyWeatherDTO
-import co.develhope.meteoapp.model.WeeklyWeatherDTO
+import co.develhope.meteoapp.model.dto.DailyWeatherDTO
+import co.develhope.meteoapp.model.dto.WeeklyWeatherDTO
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

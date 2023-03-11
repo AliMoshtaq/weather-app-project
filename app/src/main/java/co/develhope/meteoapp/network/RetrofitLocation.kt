@@ -1,6 +1,6 @@
 package co.develhope.meteoapp.network
 
-import co.develhope.meteoapp.interfaces.RetroServiceInterface
+import co.develhope.meteoapp.network.interfaces.RetroServiceInterface
 import co.develhope.meteoapp.utility.LOC_BASE_URL
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

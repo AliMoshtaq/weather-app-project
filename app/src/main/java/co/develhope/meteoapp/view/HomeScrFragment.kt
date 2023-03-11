@@ -15,7 +15,7 @@ import co.develhope.meteoapp.model.HomeScrApiState
 import co.develhope.meteoapp.model.ForecastScreenItem
 import co.develhope.meteoapp.model.WeeklyCard
 import co.develhope.meteoapp.databinding.FragmentHomeBinding
-import co.develhope.meteoapp.interfaces.CardClickListener
+import co.develhope.meteoapp.network.interfaces.CardClickListener
 import org.threeten.bp.OffsetDateTime
 
 class HomeScrFragment : Fragment() {

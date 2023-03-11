@@ -1,7 +1,40 @@
 package co.develhope.meteoapp.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import co.develhope.meteoapp.model.GeocodingNetworkObject
+import co.develhope.meteoapp.model.LocationData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class SearchScrViewModel: ViewModel() {
+sealed class LocationSearchEvent {
+    data class SearchCity(val city: String) : LocationSearchEvent()
+}
 
+sealed class LocationResult{
+    data class Success (val data: List<LocationData>): LocationResult()
+    data class Error (val e: Exception): LocationResult()
+}
+
+class SearchScreenViewModel: ViewModel() {
+    private var _locationResult = MutableLiveData<LocationResult>()
+    val locationResult: LiveData<LocationResult>
+        get() = _locationResult
+
+    fun send(event: LocationSearchEvent) =
+        when (event) {
+            is LocationSearchEvent.SearchCity -> getLocationResultData(event.city)
+        }
+
+    fun getLocationResultData(city: String){
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                _locationResult.value = LocationResult.Success(GeocodingNetworkObject.getLocationInfo(city = city))
+            } catch (e: Exception){
+                _locationResult.value = LocationResult.Error(e)
+            }
+        }
+    }
 }

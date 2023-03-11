@@ -1,6 +1,10 @@
 package co.develhope.meteoapp.model
 
 data class LocationData(
-    val longitude   : Double,
-    val latitude    : Double
+    val city: String,
+    val region: String,
+    val country: String,
+    val population: Int,
+    val latitude: Double,
+    val longitude: Double
     )

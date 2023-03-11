@@ -4,9 +4,25 @@ import android.content.Context
 import android.content.SharedPreferences
 
 class PrefManager(context: Context) {
-    private var preferences: SharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-    private var editor: SharedPreferences.Editor = preferences.edit()
 
-    var tempUnit: String get() = preferences.getString(KEY_UNITS, "metric")!!
-    set(value) {editor.putString(KEY_UNITS, value).commit()}
+    private val preferencesLatitude: SharedPreferences = context.getSharedPreferences(LATITUDE, Context.MODE_PRIVATE)
+    private val preferencesLongitude: SharedPreferences = context.getSharedPreferences(LONGITUDE, Context.MODE_PRIVATE)
+    private val preferencesCity: SharedPreferences = context.getSharedPreferences(LONGITUDE, Context.MODE_PRIVATE)
+    private val preferencesCountry: SharedPreferences = context.getSharedPreferences(LONGITUDE, Context.MODE_PRIVATE)
+
+    var latitudePref: Float
+        get() = preferencesLatitude.getFloat(LATITUDE, 41.8955F)
+        set(value) = preferencesLatitude.edit().putFloat(LATITUDE, value).apply()
+
+    var longitudePref: Float
+        get() = preferencesLongitude.getFloat(LONGITUDE, 12.4823F)
+        set(value) = preferencesLongitude.edit().putFloat(LONGITUDE, value).apply()
+
+    var cityPref: String?
+        get() = preferencesCity.getString(CITY, "Rome")
+        set(value) = preferencesCity.edit().putString(CITY, value).apply()
+
+    var countryPref: String?
+        get() = preferencesCountry.getString(COUNTRY, "Italy")
+        set(value) = preferencesCountry.edit().putString(COUNTRY, value).apply()
 }

@@ -2,6 +2,7 @@ package co.develhope.meteoapp.model
 
 import co.develhope.meteoapp.R
 import org.threeten.bp.LocalDate
+import java.util.*
 
 object ForecastModel {
 
@@ -99,6 +100,13 @@ object ForecastModel {
             0       -> selectedTodayDetails
             1       -> selectedTomorrowDetails
             else    -> selectedTodayDetails
+        }
+    }
+    fun changeGeocodingSearchLanguage(): String{
+        return when (Locale.getDefault().displayLanguage.lowercase()){
+            "english" -> "en"
+            "italian" -> "it"
+            else -> "en"
         }
     }
 }

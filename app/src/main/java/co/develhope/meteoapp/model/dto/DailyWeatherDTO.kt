@@ -1,5 +1,6 @@
-package co.develhope.meteoapp.model
+package co.develhope.meteoapp.model.dto
 
+import co.develhope.meteoapp.model.*
 import org.threeten.bp.OffsetDateTime
 
 data class DailyWeatherDTO(

@@ -9,7 +9,7 @@ import co.develhope.meteoapp.model.ForecastScreenItem
 import co.develhope.meteoapp.databinding.HomeForecastItemBinding
 import co.develhope.meteoapp.databinding.HomeSubtitleItemBinding
 import co.develhope.meteoapp.databinding.HomeTitleItemBinding
-import co.develhope.meteoapp.interfaces.CardClickListener
+import co.develhope.meteoapp.network.interfaces.CardClickListener
 
 
 class HomeScrAdapter(private val newList: List<ForecastScreenItem>, private val clickListener: CardClickListener) :
