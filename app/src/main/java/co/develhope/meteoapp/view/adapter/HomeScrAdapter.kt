@@ -1,4 +1,4 @@
-package co.develhope.meteoapp.view
+package co.develhope.meteoapp.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

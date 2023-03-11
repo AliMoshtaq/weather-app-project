@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import co.develhope.meteoapp.view.adapter.DailyScrAdapter
 import co.develhope.meteoapp.model.ForecastModel
 import co.develhope.meteoapp.model.DailyForecast
 import co.develhope.meteoapp.model.DailyScreenItems

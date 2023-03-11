@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.develhope.meteoapp.viewmodel.HomeScrViewModel
 import co.develhope.meteoapp.R
+import co.develhope.meteoapp.view.adapter.HomeScrAdapter
 import co.develhope.meteoapp.model.ForecastModel
 import co.develhope.meteoapp.model.HomeScrApiState
 import co.develhope.meteoapp.model.ForecastScreenItem

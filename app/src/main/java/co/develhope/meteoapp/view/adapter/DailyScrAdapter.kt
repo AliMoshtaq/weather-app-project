@@ -1,4 +1,4 @@
-package co.develhope.meteoapp.view
+package co.develhope.meteoapp.view.adapter
 
 import android.transition.TransitionManager
 import android.view.LayoutInflater
