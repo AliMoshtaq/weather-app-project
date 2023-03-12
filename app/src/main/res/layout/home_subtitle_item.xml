@@ -5,7 +5,6 @@
     android:id="@+id/subtitle_layout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/subtitle_layout_margin_start"
     android:layout_marginTop="@dimen/subtitle_layout_margin_top"
     android:layout_marginBottom="@dimen/subtitle_layout_margin_bottom">
 

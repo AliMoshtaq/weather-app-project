@@ -9,15 +9,25 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import co.develhope.meteoapp.databinding.FragmentErrorBinding
 
-class ErrorScrFragment : DialogFragment(){
+class ErrorDialogFragment : DialogFragment() {
+
+    companion object {
+        private const val FRAGMENT_TAG = "gift_dialog"
+        fun show(fragmentManager: FragmentManager, performAction:() -> Unit): ErrorDialogFragment {
+            val dialog = ErrorDialogFragment()
+            dialog.performAction = performAction
+            dialog.show(fragmentManager, FRAGMENT_TAG)
+            return dialog
+        }
+    }
+
+    private lateinit var binding: FragmentErrorBinding
+    private var performAction: (() -> Unit)? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NO_TITLE, android.R.style.ThemeOverlay_Material_Light)
     }
-
-    private lateinit var binding: FragmentErrorBinding
-    private var performAction: (() -> Unit)? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return object : Dialog(requireActivity(), theme){
@@ -33,7 +43,9 @@ class ErrorScrFragment : DialogFragment(){
 
     override fun onCreateView(
         inflater: LayoutInflater,
-        container: ViewGroup?, savedInstanceState: Bundle?): View {
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentErrorBinding.inflate(inflater, container, false)
         binding.btnTryAgain.setOnClickListener {
             performAction?.invoke()
@@ -43,17 +55,5 @@ class ErrorScrFragment : DialogFragment(){
             dismiss()
         }
         return binding.root
-    }
-
-
-    companion object {
-        private const val FRAGMENT_TAG = "gift_dialog"
-
-        fun show(fragmentManager: FragmentManager, performAction:() -> Unit): ErrorScrFragment {
-            val dialog = ErrorScrFragment()
-            dialog.performAction = performAction
-            dialog.show(fragmentManager, FRAGMENT_TAG)
-            return dialog
-        }
     }
 }

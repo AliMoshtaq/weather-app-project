@@ -12,11 +12,11 @@ import co.develhope.meteoapp.viewmodel.HomeScrViewModel
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.view.adapter.HomeScrAdapter
 import co.develhope.meteoapp.model.ForecastModel
-import co.develhope.meteoapp.model.HomeScrApiState
-import co.develhope.meteoapp.model.ForecastScreenItem
-import co.develhope.meteoapp.model.WeeklyCard
+import co.develhope.meteoapp.states.HomeScrApiState
+import co.develhope.meteoapp.model.HomeScreenItem
+import co.develhope.meteoapp.model.WeeklyForecast
 import co.develhope.meteoapp.databinding.FragmentHomeBinding
-import co.develhope.meteoapp.network.interfaces.CardClickListener
+import co.develhope.meteoapp.network.interfaces.OnItemClickListener
 import org.threeten.bp.OffsetDateTime
 
 class HomeScrFragment : Fragment() {
@@ -33,10 +33,10 @@ class HomeScrFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeData()
-        swipeDownToRefresh()
+        toRefresh()
     }
 
-    private fun swipeDownToRefresh(){
+    private fun toRefresh(){
         binding.swipeRefreshHomeScreen.setOnRefreshListener {
             viewModel.retrieveData()
         }
@@ -61,10 +61,10 @@ class HomeScrFragment : Fragment() {
     }
 
     private fun observeData() {
-        viewModel.weeklyDataListResult.observe(viewLifecycleOwner) {
+        viewModel.weeklyApiStateResult.observe(viewLifecycleOwner) {
             when (it) {
                 is HomeScrApiState.Failure -> {
-                    ErrorScrFragment.show(childFragmentManager) {
+                    ErrorDialogFragment.show(childFragmentManager) {
                         viewModel.retrieveData()
                     }
                     if (binding.swipeRefreshHomeScreen.isRefreshing) {
@@ -74,7 +74,7 @@ class HomeScrFragment : Fragment() {
                 is HomeScrApiState.Empty -> Unit
                 is HomeScrApiState.Loading -> Unit
                 is HomeScrApiState.Success -> {
-                    initRecyclerView(it.data)
+                    setupHomeRV(it.data)
                     if (binding.swipeRefreshHomeScreen.isRefreshing) {
                         binding.swipeRefreshHomeScreen.isRefreshing = false
                     }
@@ -83,16 +83,16 @@ class HomeScrFragment : Fragment() {
         }
     }
 
-    private fun initRecyclerView(itemsList: List<WeeklyCard>) {
+    private fun setupHomeRV(itemsList: List<WeeklyForecast>) {
         itemsList.sortedBy { it.date }
-        val screenItem: List<ForecastScreenItem> = screenUI(itemsList.toMutableList())
-        val homeScrAdapter = HomeScrAdapter(screenItem, clickListener = object : CardClickListener {
+        val screenItem: List<HomeScreenItem> = generateHomeScreenItems(itemsList.toMutableList())
+        val homeScrAdapter = HomeScrAdapter(screenItem, clickListener = object : OnItemClickListener {
             override fun viewDailyScreen(
-                forecastDetails: ForecastScreenItem.Forecast,
+                forecastDetails: HomeScreenItem.Forecast,
                 position: OffsetDateTime
             ) {
-                ForecastModel.forecastDetails(forecastDetails.weeklyCard)
-                moveToFragment(DailyScrFragment())
+                ForecastModel.forecastDetails(forecastDetails.weeklyForecast)
+                navigateToDailyFragment(DailyScrFragment())
             }
         })
         binding.homeRecyclerView.apply {
@@ -101,24 +101,24 @@ class HomeScrFragment : Fragment() {
         }
     }
 
-    private fun screenUI(itemsList: MutableList<WeeklyCard>): List<ForecastScreenItem> {
-        val homeList = arrayListOf<ForecastScreenItem>()
-        homeList.add(ForecastScreenItem.Title("Marino", "Roma"))
-        homeList.add(ForecastScreenItem.Forecast(itemsList.first()))
+    private fun generateHomeScreenItems(itemsList: MutableList<WeeklyForecast>): List<HomeScreenItem> {
+        val homeList = arrayListOf<HomeScreenItem>()
+        homeList.add(HomeScreenItem.Title("Marino", "Roma"))
+        homeList.add(HomeScreenItem.Forecast(itemsList.first()))
         ForecastModel.todayDetails(itemsList.first())
         ForecastModel.tomorrowDetails(itemsList[1])
-        homeList.add(ForecastScreenItem.Subtitle("Next 5 Days"))
+        homeList.add(HomeScreenItem.Subtitle("Next 5 Days"))
         itemsList.removeFirst()
         itemsList.removeLast()
         homeList.addAll(
             itemsList.map {
-                ForecastScreenItem.Forecast(it)
+                HomeScreenItem.Forecast(it)
             }
         )
         return homeList
     }
 
-    private fun moveToFragment(dailyFragment: DailyScrFragment){
+    private fun navigateToDailyFragment(dailyFragment: DailyScrFragment){
         val fragmentManager = activity?.supportFragmentManager
         val fragmentTransaction = fragmentManager!!.beginTransaction()
         fragmentTransaction.replace(R.id.frame_layout,dailyFragment)

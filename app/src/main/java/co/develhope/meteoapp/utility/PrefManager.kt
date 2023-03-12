@@ -2,13 +2,17 @@ package co.develhope.meteoapp.utility
 
 import android.content.Context
 import android.content.SharedPreferences
+import co.develhope.meteoapp.utility.CITY
+import co.develhope.meteoapp.utility.COUNTRY
+import co.develhope.meteoapp.utility.LATITUDE
+import co.develhope.meteoapp.utility.LONGITUDE
 
 class PrefManager(context: Context) {
 
     private val preferencesLatitude: SharedPreferences = context.getSharedPreferences(LATITUDE, Context.MODE_PRIVATE)
     private val preferencesLongitude: SharedPreferences = context.getSharedPreferences(LONGITUDE, Context.MODE_PRIVATE)
-    private val preferencesCity: SharedPreferences = context.getSharedPreferences(LONGITUDE, Context.MODE_PRIVATE)
-    private val preferencesCountry: SharedPreferences = context.getSharedPreferences(LONGITUDE, Context.MODE_PRIVATE)
+    private val preferencesCity: SharedPreferences = context.getSharedPreferences(CITY, Context.MODE_PRIVATE)
+    private val preferencesCountry: SharedPreferences = context.getSharedPreferences(COUNTRY, Context.MODE_PRIVATE)
 
     var latitudePref: Float
         get() = preferencesLatitude.getFloat(LATITUDE, 41.8955F)

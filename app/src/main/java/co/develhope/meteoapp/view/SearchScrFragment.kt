@@ -14,16 +14,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import co.develhope.meteoapp.view.adapter.SearchScreenAdapter
 import co.develhope.meteoapp.databinding.FragmentSearchBinding
 import co.develhope.meteoapp.model.LocationData
-import co.develhope.meteoapp.prefs
-import co.develhope.meteoapp.viewmodel.LocationResult
-import co.develhope.meteoapp.viewmodel.LocationSearchEvent
-import co.develhope.meteoapp.viewmodel.SearchScreenViewModel
+import co.develhope.meteoapp.model.LocationSearchEvent
+import co.develhope.meteoapp.states.LocationApiState
+import co.develhope.meteoapp.utility.prefs
+import co.develhope.meteoapp.viewmodel.SearchScrViewModel
 import com.google.android.material.R
 
 class SearchScrFragment : Fragment() {
-
     private lateinit var binding: FragmentSearchBinding
-    private val viewModel: SearchScreenViewModel by viewModels()
+    private val viewModel: SearchScrViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,10 +37,8 @@ class SearchScrFragment : Fragment() {
         research()
         observeRepo()
     }
-
     private fun research() {
-
-        binding.svSearchCity.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+         binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 viewModel.send(LocationSearchEvent.SearchCity(query.toString()))
                 observeRepo()
@@ -60,9 +57,9 @@ class SearchScrFragment : Fragment() {
     private fun observeRepo() {
         viewModel.locationResult.observe(viewLifecycleOwner) {
             when (it) {
-                is LocationResult.Error -> Toast.makeText(context, "Error", Toast.LENGTH_SHORT)
+                is LocationApiState.Error -> Toast.makeText(context, "Error", Toast.LENGTH_SHORT)
                     .show() //TODO Replace this Toast
-                is LocationResult.Success -> {
+                is LocationApiState.Success -> {
                     setupUi(it.data)
                 }
             }
@@ -86,14 +83,13 @@ class SearchScrFragment : Fragment() {
         binding.rvSearchedResult  .apply {
             layoutManager =
                 LinearLayoutManager(
-                    this@SearchScrFragment.context,
+                    this.context,
                     LinearLayoutManager.VERTICAL,
                     false
                 )
             adapter = searchScreenAdapter
         }
     }
-
     private fun hideSearchText(cityList: List<LocationData>) {
         if (cityList.isEmpty()) {
             binding.tvRecentSearch.visibility = View.GONE
@@ -101,6 +97,4 @@ class SearchScrFragment : Fragment() {
             binding.tvRecentSearch.visibility = View.VISIBLE
         }
     }
-
-
 }

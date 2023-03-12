@@ -3,24 +3,17 @@ package co.develhope.meteoapp.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import co.develhope.meteoapp.model.GeocodingNetworkObject
-import co.develhope.meteoapp.model.LocationData
+import co.develhope.meteoapp.model.LocationSearchEvent
+import co.develhope.meteoapp.states.LocationApiState
+import co.develhope.meteoapp.network.GeocodingNetworkModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+class SearchScrViewModel: ViewModel() {
+    private val geocodingNetworkModel = GeocodingNetworkModel()
 
-sealed class LocationSearchEvent {
-    data class SearchCity(val city: String) : LocationSearchEvent()
-}
-
-sealed class LocationResult{
-    data class Success (val data: List<LocationData>): LocationResult()
-    data class Error (val e: Exception): LocationResult()
-}
-
-class SearchScreenViewModel: ViewModel() {
-    private var _locationResult = MutableLiveData<LocationResult>()
-    val locationResult: LiveData<LocationResult>
+    private val _locationResult = MutableLiveData<LocationApiState>()
+    val locationResult: LiveData<LocationApiState>
         get() = _locationResult
 
     fun send(event: LocationSearchEvent) =
@@ -28,12 +21,12 @@ class SearchScreenViewModel: ViewModel() {
             is LocationSearchEvent.SearchCity -> getLocationResultData(event.city)
         }
 
-    fun getLocationResultData(city: String){
+    private fun getLocationResultData(city: String){
         CoroutineScope(Dispatchers.Main).launch {
             try {
-                _locationResult.value = LocationResult.Success(GeocodingNetworkObject.getLocationInfo(city = city))
+                _locationResult.value = LocationApiState.Success(geocodingNetworkModel.getLocationInfo(city = city))
             } catch (e: Exception){
-                _locationResult.value = LocationResult.Error(e)
+                _locationResult.value = LocationApiState.Error(e)
             }
         }
     }

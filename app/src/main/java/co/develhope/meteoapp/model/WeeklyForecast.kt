@@ -2,7 +2,7 @@ package co.develhope.meteoapp.model
 
 import org.threeten.bp.OffsetDateTime
 
-data class WeeklyCard(
+data class WeeklyForecast(
     val minTemp         : Int,
     val maxTemp         : Int,
     val precipitation   : Int,
@@ -11,8 +11,8 @@ data class WeeklyCard(
     val weather         : WeatherDescription
 )
 
-sealed class ForecastScreenItem {
-    data class Forecast(val weeklyCard: WeeklyCard)         : ForecastScreenItem()
-    data class Title(val city: String, val region: String)  : ForecastScreenItem()
-    data class Subtitle(val subTitle: String)               : ForecastScreenItem()
+sealed class HomeScreenItem {
+    data class Forecast(val weeklyForecast: WeeklyForecast) : HomeScreenItem()
+    data class Title(val city: String, val region: String)  : HomeScreenItem()
+    data class Subtitle(val subTitle: String)               : HomeScreenItem()
 }

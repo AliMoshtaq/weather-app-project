@@ -5,21 +5,28 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.model.ForecastModel
-import co.develhope.meteoapp.model.ForecastScreenItem
+import co.develhope.meteoapp.model.HomeScreenItem
 import co.develhope.meteoapp.databinding.HomeForecastItemBinding
 import co.develhope.meteoapp.databinding.HomeSubtitleItemBinding
 import co.develhope.meteoapp.databinding.HomeTitleItemBinding
-import co.develhope.meteoapp.network.interfaces.CardClickListener
+import co.develhope.meteoapp.network.interfaces.OnItemClickListener
+import co.develhope.meteoapp.utility.prefs
 
-
-class HomeScrAdapter(private val newList: List<ForecastScreenItem>, private val clickListener: CardClickListener) :
+class HomeScrAdapter(
+    private val newList: List<HomeScreenItem>,
+    private val clickListener: OnItemClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    companion object {
+        const val TITLE     = 0
+        const val CARD      = 1
+        const val SUBTITLE  = 2
+    }
 
     override fun getItemViewType(position: Int): Int {
         return when (newList[position]) {
-            is ForecastScreenItem.Forecast  -> CARD
-            is ForecastScreenItem.Subtitle  -> SUBTITLE
-            is ForecastScreenItem.Title     -> TITLE
+            is HomeScreenItem.Forecast  -> CARD
+            is HomeScreenItem.Subtitle  -> SUBTITLE
+            is HomeScreenItem.Title     -> TITLE
         }
     }
 
@@ -40,61 +47,54 @@ class HomeScrAdapter(private val newList: List<ForecastScreenItem>, private val 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is TitleViewHolder -> holder.bind(newList[position] as ForecastScreenItem.Title)
-            is ForecastViewHolder -> holder.bind(newList[position] as ForecastScreenItem.Forecast,clickListener)
-            is SubTitleViewHolder -> holder.bind(newList[position] as ForecastScreenItem.Subtitle)
+            is TitleViewHolder    -> holder.bind(newList[position] as HomeScreenItem.Title)
+            is ForecastViewHolder -> holder.bind(newList[position] as HomeScreenItem.Forecast,clickListener)
+            is SubTitleViewHolder -> holder.bind(newList[position] as HomeScreenItem.Subtitle)
         }
     }
 
     override fun getItemCount(): Int = newList.size
 
-    class ForecastViewHolder(private val binding: HomeForecastItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(forecastItem: ForecastScreenItem.Forecast, clickListener: CardClickListener) {
-
-            itemView.setOnClickListener {
-                clickListener.viewDailyScreen(forecastItem,forecastItem.weeklyCard.date)
-            }
-            binding.tvDate.text             = itemView.context.getString(R.string.tv_date,
-                forecastItem.weeklyCard.date.dayOfMonth,
-                forecastItem.weeklyCard.date.monthValue)
-            binding.tvGradeMax.text         = itemView.context.getString(R.string.tv_grade_max,
-                forecastItem.weeklyCard.maxTemp)
-            binding.tvGradeMin.text         = itemView.context.getString(R.string.tv_grade_min,
-                forecastItem.weeklyCard.minTemp)
-            binding.tvPrecipitation.text    = itemView.context.getString(R.string.tv_precip_num,
-                forecastItem.weeklyCard.precipitation)
-            binding.tvSpeed.text            = itemView.context.getString(R.string.tv_kmh,
-                forecastItem.weeklyCard.wind)
-            binding.tvToday.text            = ForecastModel.setDayOfWeek(forecastItem.weeklyCard.date.dayOfWeek.name)
-            binding.icCloudy.setImageResource(ForecastModel.setIcon(forecastItem.weeklyCard.weather))
-
-        }
-    }
-
-    class TitleViewHolder(private val binding: HomeTitleItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(titleItem: ForecastScreenItem.Title) {
+    class TitleViewHolder(private val binding: HomeTitleItemBinding)
+        : RecyclerView.ViewHolder(binding.root) {
+        fun bind(titleItem: HomeScreenItem.Title) {
             binding.titleTv.text = itemView.context.getString(
                 R.string.palermo_sic,
-                titleItem.city,
-                titleItem.region
+                prefs.cityPref,
+                prefs.countryPref
             )
         }
     }
 
+    class ForecastViewHolder(private val binding: HomeForecastItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(forecastItem: HomeScreenItem.Forecast, clickListener: OnItemClickListener) {
+            itemView.setOnClickListener {
+                clickListener.viewDailyScreen(forecastItem,forecastItem.weeklyForecast.date)
+            }
+            binding.tvDate.text             = itemView.context.getString(R.string.tv_date,
+                forecastItem.weeklyForecast.date.dayOfMonth,
+                forecastItem.weeklyForecast.date.monthValue)
+            binding.tvGradeMax.text         = itemView.context.getString(R.string.tv_grade_max,
+                forecastItem.weeklyForecast.maxTemp)
+            binding.tvGradeMin.text         = itemView.context.getString(R.string.tv_grade_min,
+                forecastItem.weeklyForecast.minTemp)
+            binding.tvPrecipitation.text    = itemView.context.getString(R.string.tv_precip_num,
+                forecastItem.weeklyForecast.precipitation)
+            binding.tvSpeed.text            = itemView.context.getString(R.string.tv_kmh,
+                forecastItem.weeklyForecast.wind)
+            binding.tvToday.text            = ForecastModel.setDayOfWeek(forecastItem.weeklyForecast.date.dayOfWeek.name)
+            binding.icCloudy.setImageResource(ForecastModel.setIcon(forecastItem.weeklyForecast.weather))
+
+        }
+    }
+
     class SubTitleViewHolder(private val binding: HomeSubtitleItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(subtitleItem: ForecastScreenItem.Subtitle) {
+        fun bind(subtitleItem: HomeScreenItem.Subtitle) {
             binding.tvSubtitle.text = itemView.context.getString(
                 R.string.next_five_days,
                 subtitleItem.subTitle
             )
         }
-    }
-
-    companion object {
-        const val TITLE     = 0
-        const val CARD      = 1
-        const val SUBTITLE  = 2
     }
 }

@@ -1,4 +1,6 @@
-package co.develhope.meteoapp.model
+package co.develhope.meteoapp.states
+
+import co.develhope.meteoapp.model.DailyForecast
 
 sealed class DailyApiState {
     object Loading                                      : DailyApiState()

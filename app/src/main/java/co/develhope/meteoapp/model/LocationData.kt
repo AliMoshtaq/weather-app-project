@@ -8,3 +8,8 @@ data class LocationData(
     val latitude: Double,
     val longitude: Double
     )
+sealed class LocationSearchEvent {
+    data class SearchCity(val city: String) : LocationSearchEvent()
+}
+
+

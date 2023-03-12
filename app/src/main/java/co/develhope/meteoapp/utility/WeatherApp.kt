@@ -1,19 +1,20 @@
-package co.develhope.meteoapp
+package co.develhope.meteoapp.utility
 
 import android.app.Application
-import android.content.Context
 import co.develhope.meteoapp.utility.PrefManager
+
 
 val prefs: PrefManager by lazy {
     WeatherApp.prefs!!
 }
 
-class WeatherApp: Application() {
-
+class WeatherApp : Application() {
     companion object {
         var prefs: PrefManager? = null
+            private set
         lateinit var instance: WeatherApp
             private set
+
     }
 
     override fun onCreate() {
@@ -21,5 +22,6 @@ class WeatherApp: Application() {
 
         instance = this
         prefs = PrefManager(applicationContext)
+
     }
 }

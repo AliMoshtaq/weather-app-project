@@ -1,9 +1,9 @@
 package co.develhope.meteoapp.network
 
-import co.develhope.meteoapp.network.interfaces.RetroServiceInterface
-import co.develhope.meteoapp.utility.OffsetDateTimeCustomAdapter
 import co.develhope.meteoapp.model.DailyForecast
-import co.develhope.meteoapp.model.WeeklyCard
+import co.develhope.meteoapp.model.WeeklyForecast
+import co.develhope.meteoapp.network.interfaces.ForecastApiService
+import co.develhope.meteoapp.utility.OffsetDateTimeCustomAdapter
 import co.develhope.meteoapp.utility.FORECAST_BASE_URL
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -14,10 +14,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-class RetrofitInstance {
-
+class ForecastNetworkModel {
     companion object {
-
         private fun getRetrofitInstance(client: OkHttpClient, gson: Gson): Retrofit =
             Retrofit.Builder()
                 .baseUrl(FORECAST_BASE_URL)
@@ -46,15 +44,16 @@ class RetrofitInstance {
             gson = getGson()
         )
 
-        private val apiService: RetroServiceInterface =
-            retrofit.create(RetroServiceInterface::class.java)
+        private val apiService: ForecastApiService =
+            retrofit.create(ForecastApiService::class.java)
 
-        suspend fun getForecastSummary(): List<WeeklyCard> {
-            return apiService.getSummaryForecastWeekly().body()?.daily?.mapToDomain()?: emptyList()
+        suspend fun getForecastSummary(): List<WeeklyForecast> {
+            return apiService.getSummaryForecastWeekly().body()?.dailyDTO?.mapToDomain() ?: emptyList()
         }
 
-        suspend fun getDailyForecast(startDate:String, endDate:String): List<DailyForecast> {
-            return apiService.getHourlyForecastDaily(start_date = startDate, end_date = endDate).body()?.hourly?.mapToDomain()?: emptyList()
+        suspend fun getDailyForecast(startDate: String, endDate: String): List<DailyForecast> {
+            return apiService.getHourlyForecastDaily(start_date = startDate, end_date = endDate)
+                .body()?.hourlyDTO?.mapToDomain() ?: emptyList()
         }
     }
 }

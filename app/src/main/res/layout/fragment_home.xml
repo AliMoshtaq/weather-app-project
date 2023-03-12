@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginHorizontal="24dp"/>
+        android:layout_marginHorizontal="24dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/home_recycler_view"
@@ -28,5 +28,6 @@
         tools:listitem="@layout/home_forecast_item"
         android:clipToPadding="false"
         android:paddingBottom="60dp"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

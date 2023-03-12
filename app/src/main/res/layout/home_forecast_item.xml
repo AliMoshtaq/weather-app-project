@@ -4,7 +4,6 @@
     android:id="@+id/today_layout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/forecast_layout_height"
-    android:layout_marginHorizontal="@dimen/forecast_layout_marginHorizontal"
     android:layout_marginTop="@dimen/forecast_layout_marginTop"
     android:elevation="10dp"
     android:paddingBottom="10dp"

@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import co.develhope.meteoapp.model.ForecastModel
-import co.develhope.meteoapp.model.DailyApiState
-import co.develhope.meteoapp.network.RetrofitInstance
+import co.develhope.meteoapp.states.DailyApiState
+import co.develhope.meteoapp.network.ForecastNetworkModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,7 +24,7 @@ class DailyScrViewModel: ViewModel() {
                 val chosenData = ForecastModel.getDailyForecastData()
                 if (chosenData != null){
                     dailyDataList.value = DailyApiState.Success(
-                        RetrofitInstance.getDailyForecast(
+                        ForecastNetworkModel.getDailyForecast(
                             chosenData.date.format(DateTimeFormatter.ISO_LOCAL_DATE),
                             chosenData.date.format(DateTimeFormatter.ISO_LOCAL_DATE)
                         ).toMutableList()

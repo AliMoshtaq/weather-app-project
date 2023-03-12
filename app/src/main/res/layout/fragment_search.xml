@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_grey"
+    android:orientation="vertical"
     tools:context=".view.SearchScrFragment">
 
     <android.widget.SearchView
-        android:id="@+id/sv_search_city"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
         android:layout_marginTop="79dp"
         android:layout_marginEnd="18dp"
@@ -18,21 +20,9 @@
         android:iconifiedByDefault="false"
         android:queryBackground="@android:color/transparent"
         android:queryHint="Enter Location"
-        android:transitionName="Enter Location"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:transitionName="Enter Location" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_searched_result"
-        android:layout_width="5dp"
-        android:layout_height="3dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sv_search_city" />
-
-        <TextView
+    <TextView
         android:id="@+id/tvRecentSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,20 +32,17 @@
         android:textColor="@color/blue"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sv_search_city" />
+        app:layout_constraintTop_toBottomOf="@+id/search_bar" />
 
-    <TextView
-        android:id="@+id/tv_no_result"
-        android:layout_width="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_searched_result"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/txt_no_result"
-        android:fontFamily="@font/inter"
-        android:textSize="16sp"
-        android:textColor="@color/blue"
-        android:visibility="gone"
-        android:layout_marginTop="32dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sv_search_city" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_bar"
+        android:visibility="visible"
+        tools:listitem="@layout/saved_cities_item"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

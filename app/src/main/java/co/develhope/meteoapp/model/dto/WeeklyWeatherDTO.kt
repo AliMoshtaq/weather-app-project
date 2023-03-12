@@ -2,54 +2,82 @@ package co.develhope.meteoapp.model.dto
 
 import co.develhope.meteoapp.model.CurrentWeather
 import co.develhope.meteoapp.model.WeatherDescription
-import co.develhope.meteoapp.model.WeeklyCard
+import co.develhope.meteoapp.model.WeeklyForecast
 import co.develhope.meteoapp.model.getWeatherDescription
+import com.google.gson.annotations.SerializedName
 import org.threeten.bp.OffsetDateTime
 
 data class WeeklyWeatherDTO(
-    val current_weather         : CurrentWeather,
-    val daily                   : DailyTransferObject,
-    val daily_units             : DailyUnits,
-    val elevation               : Double,
-    val generationtime_ms       : Double,
-    val latitude                : Double,
-    val longitude               : Double,
-    val timezone                : String,
-    val timezone_abbreviation   : String,
-    val utc_offset_seconds      : Int
+    @SerializedName("current_weather")
+    val currentWeather: CurrentWeather,
+    @SerializedName("daily")
+    val dailyDTO: DailyDTO,
+    @SerializedName("daily_units")
+    val dailyUnitsDTO: DailyUnits,
+    @SerializedName("elevation")
+    val elevation: Double,
+    @SerializedName("generationtime_ms")
+    val generationtimeMs: Double,
+    @SerializedName("latitude")
+    val latitude: Double,
+    @SerializedName("longitude")
+    val longitude: Double,
+    @SerializedName("timezone")
+    val timezone: String,
+    @SerializedName("timezone_abbreviation")
+    val timezoneAbbreviation: String,
+    @SerializedName("utc_offset_seconds")
+    val utcOffsetSeconds: Int
 ) {
-    data class DailyTransferObject(
-        val precipitation_sum   : List<Double>,
-        val rain_sum            : List<Double>,
-        val sunrise             : List<String>,
-        val sunset              : List<String>,
-        val temperature_2m_max  : List<Double>,
-        val temperature_2m_min  : List<Double>,
-        val time                : List<OffsetDateTime>,
-        val weathercode         : List<Int>,
-        val windspeed_10m_max   : List<Double>
+    data class DailyDTO(
+        @SerializedName("precipitation_sum")
+        val precipitationSum: List<Double>,
+        @SerializedName("rain_sum")
+        val rainSum: List<Double>,
+        @SerializedName("sunrise")
+        val sunrise: List<String>,
+        @SerializedName("sunset")
+        val sunset: List<String>,
+        @SerializedName("temperature_2m_max")
+        val temperature2mMax: List<Double>,
+        @SerializedName("temperature_2m_min")
+        val temperature2mMin: List<Double>,
+        @SerializedName("time")
+        val time: List<OffsetDateTime>,
+        @SerializedName("weathercode")
+        val weathercode: List<Int>,
+        @SerializedName("windspeed_10m_max")
+        val windspeed10mmax: List<Double>
     ) {
-        fun mapToDomain(): List<WeeklyCard> {
+        fun mapToDomain(): List<WeeklyForecast> {
             return this.time.mapIndexed { index, date ->
-                WeeklyCard(
+                WeeklyForecast(
                     date =          date,
-                    minTemp =       this.temperature_2m_min.getOrNull(index)?.toInt() ?: 0,
-                    maxTemp =       this.temperature_2m_max.getOrNull(index)?.toInt() ?: 0,
-                    precipitation = this.precipitation_sum.getOrNull(index)?.toInt() ?: 0,
-                    wind =          this.windspeed_10m_max.getOrNull(index)?.toInt() ?: 0,
+                    minTemp =       this.temperature2mMin.getOrNull(index)?.toInt() ?: 0,
+                    maxTemp =       this.temperature2mMax.getOrNull(index)?.toInt() ?: 0,
+                    precipitation = this.precipitationSum.getOrNull(index)?.toInt() ?: 0,
+                    wind =          this.windspeed10mmax.getOrNull(index)?.toInt() ?: 0,
                     weather =       this.weathercode.getOrNull(index)?.getWeatherDescription() ?: WeatherDescription.FOGGY
                 )
             }
         }
     }
     data class DailyUnits(
-        val precipitation_sum   : String,
-        val rain_sum            : String,
-        val sunrise             : String,
-        val sunset              : String,
-        val temperature_2m_max  : String,
-        val temperature_2m_min  : String,
-        val time                : String,
-        val weathercode         : String
+        @SerializedName("precipitation_sum")
+        val precipitationSum: String,
+        @SerializedName("rain_sum")
+        val rainSum: String,
+        @SerializedName("sunrise")
+        val sunrise: String,
+        @SerializedName("sunset")
+        val sunset: String,
+        @SerializedName("temperature_2m_max")
+        val temperature2mMax: String,
+        @SerializedName("temperature_2m_min")
+        val temperature2mMin: String,
+        @SerializedName("time")
+        val time: String,
+        @SerializedName("weathercode")
+        val weathercode: String
     )
 }

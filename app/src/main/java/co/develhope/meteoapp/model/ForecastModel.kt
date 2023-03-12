@@ -6,9 +6,9 @@ import java.util.*
 
 object ForecastModel {
 
-    private var forecastItems           : WeeklyCard? = null
-    private var selectedTodayDetails    : WeeklyCard? = null
-    private var selectedTomorrowDetails : WeeklyCard? = null
+    private var forecastItems           : WeeklyForecast? = null
+    private var selectedTodayDetails    : WeeklyForecast? = null
+    private var selectedTomorrowDetails : WeeklyForecast? = null
 
     fun setIcon(weather: WeatherDescription): Int {
         return when (weather){
@@ -28,7 +28,6 @@ object ForecastModel {
 
         }
     }
-
     fun setDayOfWeek(dayOfWeek: String): String {
         return when (dayOfWeek) {
             LocalDate.now().dayOfWeek.toString()                    -> "Today"
@@ -80,22 +79,21 @@ object ForecastModel {
         }
     }
 
-    fun forecastDetails(forecast: WeeklyCard){
+    fun forecastDetails(forecast: WeeklyForecast){
         forecastItems = forecast
     }
 
-    fun getDailyForecastData(): WeeklyCard? = forecastItems
+    fun getDailyForecastData(): WeeklyForecast? = forecastItems
 
-
-    fun todayDetails(todayDetails: WeeklyCard){
+    fun todayDetails(todayDetails: WeeklyForecast){
         selectedTodayDetails = todayDetails
     }
 
-    fun tomorrowDetails(tomorrowDetails: WeeklyCard){
+    fun tomorrowDetails(tomorrowDetails: WeeklyForecast){
         selectedTomorrowDetails = tomorrowDetails
     }
 
-    fun getSelectedDayDetails(position:Int): WeeklyCard? {
+    fun getSelectedDayDetails(position:Int): WeeklyForecast? {
         return when(position){
             0       -> selectedTodayDetails
             1       -> selectedTomorrowDetails
