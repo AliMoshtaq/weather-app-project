@@ -41,13 +41,10 @@ class SearchScrFragment : Fragment() {
          binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 viewModel.send(LocationSearchEvent.SearchCity(query.toString()))
-                observeRepo()
                 return false
             }
-
             override fun onQueryTextChange(newText: String?): Boolean {
                 viewModel.send(LocationSearchEvent.SearchCity(newText.toString()))
-                observeRepo()
                 return false
             }
 
@@ -80,9 +77,8 @@ class SearchScrFragment : Fragment() {
             (activity as MainActivity).overridePendingTransition(R.anim.abc_popup_enter, R.anim.abc_popup_exit)
         }
         Log.d("GeocodingLog", "${it.size}")
-        binding.rvSearchedResult  .apply {
-            layoutManager =
-                LinearLayoutManager(
+        binding.rvSearchedResult.apply {
+            layoutManager = LinearLayoutManager(
                     this.context,
                     LinearLayoutManager.VERTICAL,
                     false

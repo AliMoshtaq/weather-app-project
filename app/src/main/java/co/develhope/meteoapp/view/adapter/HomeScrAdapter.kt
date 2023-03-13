@@ -11,6 +11,7 @@ import co.develhope.meteoapp.databinding.HomeSubtitleItemBinding
 import co.develhope.meteoapp.databinding.HomeTitleItemBinding
 import co.develhope.meteoapp.network.interfaces.OnItemClickListener
 import co.develhope.meteoapp.utility.prefs
+import org.threeten.bp.OffsetDateTime
 
 class HomeScrAdapter(
     private val newList: List<HomeScreenItem>,
@@ -84,7 +85,8 @@ class HomeScrAdapter(
             binding.tvSpeed.text            = itemView.context.getString(R.string.tv_kmh,
                 forecastItem.weeklyForecast.wind)
             binding.tvToday.text            = ForecastModel.setDayOfWeek(forecastItem.weeklyForecast.date.dayOfWeek.name)
-            binding.icCloudy.setImageResource(ForecastModel.setIcon(forecastItem.weeklyForecast.weather))
+            val time = OffsetDateTime.now() // Replace with the appropriate time for the forecast item
+            binding.icCloudy.setImageResource(ForecastModel.setIcon(forecastItem.weeklyForecast.weather, time))
 
         }
     }

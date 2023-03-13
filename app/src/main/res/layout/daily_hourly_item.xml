@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/day_hourly_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
 
     <TextView
         android:id="@+id/day_hour2"
@@ -14,9 +12,9 @@
         android:layout_marginTop="19dp"
         android:fontFamily="@font/inter"
         android:text="@string/daily_hour_second"
+        android:textColor="@color/blue"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@color/blue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,8 +22,8 @@
         android:id="@+id/daily_icon"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_marginStart="102dp"
-        android:layout_marginTop="16.84dp"
+        android:layout_marginStart="82.54dp"
+        android:layout_marginTop="16dp"
         android:contentDescription="@string/icon_holder"
         android:src="@drawable/ic_fluent_moon"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,22 +33,22 @@
         android:id="@+id/day_grade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="168dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="32.75dp"
         android:fontFamily="@font/inter"
         android:text="@string/daily_temp_grade"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/day_icon_drop"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/day_icon_drop"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginTop="24.25dp"
-        android:layout_marginEnd="140dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="124.75dp"
         android:contentDescription="@string/icon_holder"
         android:src="@drawable/ic_fluent_drop"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,14 +58,14 @@
         android:id="@+id/day_humidity_grade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="9.75dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="86dp"
         android:fontFamily="@font/inter"
         android:text="@string/daily_humidity_percent"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/day_icon_drop"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -75,11 +73,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-
+        android:layout_marginEnd="10dp"
         android:contentDescription="@string/icon_arrow"
         android:src="@drawable/ic_arrow_expand"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/bottom_line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="15dp"
+        android:background="#ABA4FF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/daily_card_view" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/daily_card_view"
@@ -87,10 +94,10 @@
         android:layout_height="213dp"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="26dp"
-        android:visibility="gone"
         android:background="@drawable/bg_daily_screen_hf"
         android:elevation="10dp"
         android:paddingBottom="10dp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/day_grade">
 
@@ -277,14 +284,5 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <View
-        android:id="@+id/bottom_line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginTop="15dp"
-        android:background="#ABA4FF"
-        app:layout_constraintTop_toBottomOf="@+id/daily_card_view"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

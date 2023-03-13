@@ -21,57 +21,72 @@ import co.develhope.meteoapp.viewmodel.DailyScrViewModel
 import org.threeten.bp.OffsetDateTime
 
 class DailyScrFragment : Fragment() {
+
     private lateinit var binding: FragmentDailyBinding
     private val viewModel: DailyScrViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        // Inflate the layout for this fragment using the FragmentDailyBinding class
         binding = FragmentDailyBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Observe the data and retrieve it
         observeData()
         viewModel.retrieveData()
+        // Setup the refresh listener
         setupRefreshListener()
     }
 
     private fun setupRefreshListener() {
         binding.swipeRefreshDailyScreen.setOnRefreshListener {
+            // Retrieve the data again when the screen is refreshed
             viewModel.retrieveData()
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Handle the back press
         requireActivity().onBackPressedDispatcher.addCallback(
             this,
-            object: OnBackPressedCallback(true){
+            object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
+                    // Navigate back to the MainActivity when the back button is pressed
                     val intent = Intent(context, MainActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                     (activity as MainActivity).startActivity(intent)
-                    (activity as MainActivity).overridePendingTransition(com.google.android.material.
-                    R.anim.abc_popup_enter, com.google.android.material.R.anim.abc_popup_exit)
+                    (activity as MainActivity).overridePendingTransition(
+                        com.google.android.material.R.anim.abc_popup_enter,
+                        com.google.android.material.R.anim.abc_popup_exit
+                    )
                 }
             }
         )
     }
 
     private fun setupDailyForecastRV(hourlyForecastList: MutableList<DailyForecast>) {
+        // Sort the hourly forecast list by hour
         hourlyForecastList.sortedBy { it.date.hour }
+        // Set up the DailyScrAdapter
         val dailyScrAdapter =
-            if (hourlyForecastList[0].date.dayOfYear == OffsetDateTime.now().dayOfYear){
-            getHourlyForecasts(hourlyForecastList)
-            val itemToShow: List<DailyScreenItems> =
-                generateDailyScreenUI(getHourlyForecasts(hourlyForecastList))
-            DailyScrAdapter(itemToShow)
-        } else {
-            val itemToShow: List<DailyScreenItems> = generateDailyScreenUI(hourlyForecastList)
-            DailyScrAdapter(itemToShow)
-        }
+            if (hourlyForecastList[0].date.dayOfYear == OffsetDateTime.now().dayOfYear) {
+                // If it's the current day, show the forecast for the current time
+                getHourlyForecasts(hourlyForecastList)
+                val itemToShow: List<DailyScreenItems> =
+                    generateDailyScreenUI(getHourlyForecasts(hourlyForecastList))
+                DailyScrAdapter(itemToShow)
+            } else {
+                // Otherwise, show the entire daily forecast
+                val itemToShow: List<DailyScreenItems> = generateDailyScreenUI(hourlyForecastList)
+                DailyScrAdapter(itemToShow)
+            }
+        // Set up the RecyclerView
         binding.HourlyRecyclerView.apply {
             layoutManager =
                 LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
@@ -81,11 +96,13 @@ class DailyScrFragment : Fragment() {
 
     private fun getHourlyForecasts(hourlyForecastList: MutableList<DailyForecast>): MutableList<DailyForecast> {
         val list: MutableList<DailyForecast> = mutableListOf()
-        if (OffsetDateTime.now().minute <= 29){
+        if (OffsetDateTime.now().minute <= 29) {
+            // If it's the first half of the hour, show the forecast for the current hour and later hours
             list.addAll(hourlyForecastList.filter {
                 it.date.hour >= OffsetDateTime.now().hour
             })
         } else {
+            // If it's the second half of the hour, show the forecast for later hours only
             list.addAll(hourlyForecastList.filter {
                 it.date.hour > OffsetDateTime.now().hour
             })
@@ -93,36 +110,42 @@ class DailyScrFragment : Fragment() {
         return list
     }
 
-    private fun generateDailyScreenUI(dailyForecastList: MutableList<DailyForecast>):List<DailyScreenItems>{
+
+    private fun generateDailyScreenUI(dailyForecastList: MutableList<DailyForecast>): List<DailyScreenItems> {
         val dailyScreenItemsList = arrayListOf<DailyScreenItems>()
+        // Add the title item to the list
         dailyScreenItemsList.add(
             DailyScreenItems.Title(
-                ForecastModel.getDailyForecastData()?.date?: OffsetDateTime.now(),
+                ForecastModel.getDailyForecastData()?.date ?: OffsetDateTime.now(),
                 "Marino",
                 "Roma",
                 WeatherDescription.PARTLY_CLOUDY
             )
         )
+        // Add the hourly forecast items to the list
         dailyScreenItemsList.addAll(
             dailyForecastList.map { DailyScreenItems.HourlyForecast(it) }
         )
         return dailyScreenItemsList
     }
 
-    private fun observeData(){
-        viewModel.dailyDataListResult.observe(viewLifecycleOwner){
-            when(it){
+    private fun observeData() {
+        viewModel.dailyDataListResult.observe(viewLifecycleOwner) {
+            // Observe the state of the daily data list result and handle it accordingly
+            when (it) {
                 is DailyApiState.Failure -> {
                     Toast.makeText(context, "Failure", Toast.LENGTH_SHORT).show()
                     if (binding.swipeRefreshDailyScreen.isRefreshing) {
                         binding.swipeRefreshDailyScreen.isRefreshing = false
                     }
+                    // Show an error dialog and retrieve the data again when the user taps Retry
                     ErrorDialogFragment.show(
                         childFragmentManager,
                     ) { viewModel.retrieveData() }
                 }
                 is DailyApiState.Loading -> Unit
                 is DailyApiState.Success -> {
+                    // Set up the RecyclerView with the retrieved data
                     setupDailyForecastRV(it.data)
                     if (binding.swipeRefreshDailyScreen.isRefreshing) {
                         binding.swipeRefreshDailyScreen.isRefreshing = false
@@ -132,4 +155,3 @@ class DailyScrFragment : Fragment() {
         }
     }
 }
-
