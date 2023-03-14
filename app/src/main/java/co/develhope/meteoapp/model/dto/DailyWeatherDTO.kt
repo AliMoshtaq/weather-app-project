@@ -7,7 +7,6 @@ import org.threeten.bp.OffsetDateTime
 data class DailyWeatherDTO(
     @SerializedName("current_weather")
     val currentWeather: CurrentWeather,
-    @SerializedName("elevation")
     val elevation: Double,
     @SerializedName("generationtime_ms")
     val generationtimeMs: Double,
@@ -15,11 +14,8 @@ data class DailyWeatherDTO(
     val hourlyDTO: HourlyDTO,
     @SerializedName("hourly_units")
     val hourlyUnits: HourlyUnits,
-    @SerializedName("latitude")
     val latitude: Double,
-    @SerializedName("longitude")
     val longitude: Double,
-    @SerializedName("timezone")
     val timezone: String,
     @SerializedName("timezone_abbreviation")
     val timezoneAbbreviation: String,
@@ -27,17 +23,12 @@ data class DailyWeatherDTO(
     val utcOffsetSeconds: Int
 ) {
     data class HourlyDTO(
-        @SerializedName("rain")
         val rain: List<Double>,
-        @SerializedName("showers")
         val showers: List<Double>,
-        @SerializedName("snowfall")
         val snowfall: List<Double>,
         @SerializedName("temperature_2m")
         val temperature2m: List<Double>,
-        @SerializedName("time")
         val time: List<OffsetDateTime>,
-        @SerializedName("weathercode")
         val weathercode: List<Int>,
         @SerializedName("windspeed_10m")
         val windspeed10m: List<Double>,
@@ -45,46 +36,34 @@ data class DailyWeatherDTO(
         val relativeHumidity: List<Int>,
         @SerializedName("apparent_temperature")
         val apparentTemperature: List<Double>,
-        @SerializedName("cloudcover")
         val cloudcover: List<Int>,
         @SerializedName("winddirection_10m")
         val windDirection: List<Int>
     ) {
-        fun mapToDomain(): List<DailyForecast>{
-            return this.time.mapIndexed { index, date ->
-                DailyForecast(
-                    date =          date,
-                    weather =       this.weathercode.getOrNull(index)?.getWeatherDescription()?: WeatherDescription.PARTLY_CLOUDY,
-                    temperature =   this.temperature2m.getOrNull(index)?.toInt() ?: 0,
-                    rainfall =      this.showers.getOrNull(index)?.toInt()?:0,
-                    humidity =      this.relativeHumidity.getOrNull(index)?.toInt() ?: 0,
-                    precip =        this.apparentTemperature.getOrNull(index)?.toInt() ?: 0,
-                    wind =          this.windspeed10m.getOrNull(index)?.toInt() ?: 0,
-                    coverage =      this.cloudcover.getOrNull(index)?.toInt()?:0,
-                    windDirection = this.windDirection.getOrNull(index)?.getWindDirection() ?: WindDirection.N,
-                    rain =          this.rain.getOrNull(index)?.toInt()?:0,
-                    index =         this.cloudcover.getOrNull(index)?.toInt()?:0
-
-
-                )
-            }
+        fun mapToDomain(): List<DailyForecast> = time.mapIndexed { index, date ->
+            DailyForecast(
+                date = date,
+                weather = weathercode.getOrNull(index)?.getWeatherDescription() ?: WeatherDescription.PARTLY_CLOUDY,
+                temperature = temperature2m.getOrNull(index)?.toInt() ?: 0,
+                rainfall = showers.getOrNull(index)?.toInt() ?: 0,
+                humidity = relativeHumidity.getOrNull(index)?.toInt() ?: 0,
+                precip = apparentTemperature.getOrNull(index)?.toInt() ?: 0,
+                wind = windspeed10m.getOrNull(index)?.toInt() ?: 0,
+                coverage = cloudcover.getOrNull(index)?.toInt() ?: 0,
+                windDirection = windDirection.getOrNull(index)?.getWindDirection() ?: WindDirection.N,
+                rain = rain.getOrNull(index)?.toInt() ?: 0,
+                index = cloudcover.getOrNull(index)?.toInt() ?: 0
+            )
         }
     }
 
     data class HourlyUnits (
-        @SerializedName("rain")
         val rain: String,
-        @SerializedName("showers")
         val showers: String,
-        @SerializedName("snowfall")
         val snowfall: String,
-        @SerializedName("temperature_2m")
         val temperature2m: String,
-        @SerializedName("time")
         val time: String,
-        @SerializedName("weathercode")
         val weathercode: String,
-        @SerializedName("windspeed_10m")
         val windspeed10m: String
     )
 }

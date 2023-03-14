@@ -70,24 +70,37 @@ class HomeScrAdapter(
     class ForecastViewHolder(private val binding: HomeForecastItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(forecastItem: HomeScreenItem.Forecast, clickListener: OnItemClickListener) {
-            itemView.setOnClickListener {
-                clickListener.viewDailyScreen(forecastItem,forecastItem.weeklyForecast.date)
-            }
-            binding.tvDate.text             = itemView.context.getString(R.string.tv_date,
-                forecastItem.weeklyForecast.date.dayOfMonth,
-                forecastItem.weeklyForecast.date.monthValue)
-            binding.tvGradeMax.text         = itemView.context.getString(R.string.tv_grade_max,
-                forecastItem.weeklyForecast.maxTemp)
-            binding.tvGradeMin.text         = itemView.context.getString(R.string.tv_grade_min,
-                forecastItem.weeklyForecast.minTemp)
-            binding.tvPrecipitation.text    = itemView.context.getString(R.string.tv_precip_num,
-                forecastItem.weeklyForecast.precipitation)
-            binding.tvSpeed.text            = itemView.context.getString(R.string.tv_kmh,
-                forecastItem.weeklyForecast.wind)
-            binding.tvToday.text            = ForecastModel.setDayOfWeek(forecastItem.weeklyForecast.date.dayOfWeek.name)
-            val time = OffsetDateTime.now() // Replace with the appropriate time for the forecast item
-            binding.icCloudy.setImageResource(ForecastModel.setIcon(forecastItem.weeklyForecast.weather, time))
+            with(binding) {
+                itemView.setOnClickListener {
+                    clickListener.viewDailyScreen(forecastItem, forecastItem.weeklyForecast.date)
+                }
+                tvDate.text = itemView.context.getString(
+                    R.string.tv_date,
+                    forecastItem.weeklyForecast.date.dayOfMonth,
+                    forecastItem.weeklyForecast.date.monthValue
+                )
+                tvGradeMax.text = itemView.context.getString(
+                    R.string.tv_grade_max,
+                    forecastItem.weeklyForecast.maxTemp
+                )
+                tvGradeMin.text = itemView.context.getString(
+                    R.string.tv_grade_min,
+                    forecastItem.weeklyForecast.minTemp
+                )
+                tvPrecipitation.text = itemView.context.getString(
+                    R.string.tv_precip_num,
+                    forecastItem.weeklyForecast.precipitation
+                )
+                tvSpeed.text = itemView.context.getString(
+                    R.string.tv_kmh,
+                    forecastItem.weeklyForecast.wind
+                )
+                tvToday.text =
+                    ForecastModel.setDayOfWeek(forecastItem.weeklyForecast.date.dayOfWeek.name)
 
+                val time = OffsetDateTime.now() // Replace with the appropriate time for the forecast item
+                icCloudy.setImageResource(ForecastModel.setIcon(forecastItem.weeklyForecast.weather, time))
+            }
         }
     }
 

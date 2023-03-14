@@ -117,8 +117,8 @@ class DailyScrFragment : Fragment() {
         dailyScreenItemsList.add(
             DailyScreenItems.Title(
                 ForecastModel.getDailyForecastData()?.date ?: OffsetDateTime.now(),
-                "Marino",
-                "Roma",
+                "",
+                "",
                 WeatherDescription.PARTLY_CLOUDY
             )
         )
@@ -128,29 +128,19 @@ class DailyScrFragment : Fragment() {
         )
         return dailyScreenItemsList
     }
-
     private fun observeData() {
-        viewModel.dailyDataListResult.observe(viewLifecycleOwner) {
-            // Observe the state of the daily data list result and handle it accordingly
-            when (it) {
+        viewModel.dailyDataListResult.observe(viewLifecycleOwner) { state ->
+            when (state) {
                 is DailyApiState.Failure -> {
                     Toast.makeText(context, "Failure", Toast.LENGTH_SHORT).show()
-                    if (binding.swipeRefreshDailyScreen.isRefreshing) {
-                        binding.swipeRefreshDailyScreen.isRefreshing = false
-                    }
-                    // Show an error dialog and retrieve the data again when the user taps Retry
-                    ErrorDialogFragment.show(
-                        childFragmentManager,
-                    ) { viewModel.retrieveData() }
+                    binding.swipeRefreshDailyScreen.isRefreshing = false
+                    ErrorDialogFragment.show(childFragmentManager) { viewModel.retrieveData() }
                 }
-                is DailyApiState.Loading -> Unit
                 is DailyApiState.Success -> {
-                    // Set up the RecyclerView with the retrieved data
-                    setupDailyForecastRV(it.data)
-                    if (binding.swipeRefreshDailyScreen.isRefreshing) {
-                        binding.swipeRefreshDailyScreen.isRefreshing = false
-                    }
+                    setupDailyForecastRV(state.data)
+                    binding.swipeRefreshDailyScreen.isRefreshing = false
                 }
+                else -> Unit
             }
         }
     }

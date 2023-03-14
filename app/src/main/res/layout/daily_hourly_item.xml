@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/day_hourly_item"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true">
 
     <TextView
         android:id="@+id/day_hour2"
@@ -82,7 +83,7 @@
     <View
         android:id="@+id/bottom_line"
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
+        android:layout_height="1dp"
         android:layout_marginTop="15dp"
         android:background="#ABA4FF"
         app:layout_constraintStart_toStartOf="parent"
@@ -156,14 +157,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
+            android:id="@+id/divider_line1"
             android:layout_width="match_parent"
-            android:layout_height="0.6dp"
+            android:layout_height="1dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="70dp"
             android:layout_marginEnd="18.5dp"
+            android:layout_marginBottom="69dp"
             android:background="#ABA4FF"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/dailyCard_humidityTxt"
@@ -220,8 +222,9 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
+            android:id="@+id/divider_line"
             android:layout_width="match_parent"
-            android:layout_height="0.6dp"
+            android:layout_height="1dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="18.5dp"
             android:layout_marginBottom="69dp"
