@@ -1,7 +1,6 @@
 package co.develhope.meteoapp.utility
 
 import android.app.Application
-import co.develhope.meteoapp.utility.PrefManager
 
 
 val prefs: PrefManager by lazy {

@@ -104,7 +104,7 @@ class DailyScrAdapter(private val newList: List<DailyScreenItems>) : // Define t
 
         fun bind(title: DailyScreenItems.Title, prefs: PrefManager) {
             with(binding) {
-                val dayOfWeekString = title.date.dayOfWeek.toString()
+                val dayOfWeekString = ForecastModel.setDayOfWeek(title.date.dayOfWeek.toString()) // Call setDayOfWeek function here
                     .lowercase()
                     .replaceFirstChar { it.uppercase() } // Capitalize the first letter of the day of week string
 

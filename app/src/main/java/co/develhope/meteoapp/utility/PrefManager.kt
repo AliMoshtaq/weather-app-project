@@ -2,10 +2,6 @@ package co.develhope.meteoapp.utility
 
 import android.content.Context
 import android.content.SharedPreferences
-import co.develhope.meteoapp.utility.CITY
-import co.develhope.meteoapp.utility.COUNTRY
-import co.develhope.meteoapp.utility.LATITUDE
-import co.develhope.meteoapp.utility.LONGITUDE
 
 class PrefManager(context: Context) {
 

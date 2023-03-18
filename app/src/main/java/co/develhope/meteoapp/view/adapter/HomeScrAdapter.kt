@@ -4,14 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import co.develhope.meteoapp.R
-import co.develhope.meteoapp.model.ForecastModel
-import co.develhope.meteoapp.model.HomeScreenItem
 import co.develhope.meteoapp.databinding.HomeForecastItemBinding
 import co.develhope.meteoapp.databinding.HomeSubtitleItemBinding
 import co.develhope.meteoapp.databinding.HomeTitleItemBinding
+import co.develhope.meteoapp.model.ForecastModel
+import co.develhope.meteoapp.model.HomeScreenItem
 import co.develhope.meteoapp.network.interfaces.OnItemClickListener
 import co.develhope.meteoapp.utility.prefs
-import org.threeten.bp.OffsetDateTime
 
 class HomeScrAdapter(
     private val newList: List<HomeScreenItem>,
@@ -48,7 +47,7 @@ class HomeScrAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is TitleViewHolder    -> holder.bind(newList[position] as HomeScreenItem.Title)
+            is TitleViewHolder    -> holder.bind()
             is ForecastViewHolder -> holder.bind(newList[position] as HomeScreenItem.Forecast,clickListener)
             is SubTitleViewHolder -> holder.bind(newList[position] as HomeScreenItem.Subtitle)
         }
@@ -58,7 +57,7 @@ class HomeScrAdapter(
 
     class TitleViewHolder(private val binding: HomeTitleItemBinding)
         : RecyclerView.ViewHolder(binding.root) {
-        fun bind(titleItem: HomeScreenItem.Title) {
+        fun bind() {
             binding.titleTv.text = itemView.context.getString(
                 R.string.palermo_sic,
                 prefs.cityPref,

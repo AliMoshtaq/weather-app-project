@@ -91,10 +91,7 @@ class MainActivity : AppCompatActivity() {
                         Toast.makeText(this, "Null Received", Toast.LENGTH_SHORT).show()
                     } else {
                         // Fetch weather for current location
-                        fetchCurrentWeatherLocation(
-                            location.latitude.toString(),
-                            location.longitude.toString()
-                        )
+                        fetchCurrentWeatherLocation()
                     }
                 }
             } else {
@@ -107,7 +104,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun fetchCurrentWeatherLocation(latitude: String, longitude: String) {
+    private fun fetchCurrentWeatherLocation() {
         // Fetch weather data based on latitude and longitude
     }
 

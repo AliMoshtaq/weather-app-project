@@ -50,8 +50,8 @@ object ForecastModel {
     fun setDayOfWeek(dayOfWeek: String): String {
         return when (dayOfWeek) {
             // Return the appropriate string for each day of the week
-            LocalDate.now().dayOfWeek.toString()            -> "Today"
-            LocalDate.now().dayOfWeek.plus(1).toString()     -> "Tomorrow"
+            LocalDate.now().dayOfWeek.toString()                -> "Today"
+            LocalDate.now().dayOfWeek.plus(1).toString()   -> "Tomorrow"
             "MONDAY"        -> "Monday"
             "TUESDAY"       -> "Tuesday"
             "WEDNESDAY"     -> "Wednesday"
