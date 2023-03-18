@@ -57,7 +57,7 @@ data class WeeklyWeatherDTO(
                     maxTemp =       this.temperature2mMax.getOrNull(index)?.toInt() ?: 0,
                     precipitation = this.precipitationSum.getOrNull(index)?.toInt() ?: 0,
                     wind =          this.windspeed10mmax.getOrNull(index)?.toInt() ?: 0,
-                    weather =       this.weathercode.getOrNull(index)?.getWeatherDescription() ?: WeatherDescription.FOGGY
+                    weather =       this.weathercode.getOrNull(index)?.getWeatherDescription() ?: WeatherDescription.CLEAR_SKY
                 )
             }
         }

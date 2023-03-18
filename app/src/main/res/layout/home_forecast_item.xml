@@ -137,12 +137,12 @@
 
     <ImageView
         android:id="@+id/ic_cloudy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginStart="@dimen/forecast_icon_marginStart"
         android:layout_marginTop="@dimen/forecast_icon_marginTop"
         android:contentDescription="@string/icon_holder"
-        android:src="@drawable/ic_sun"
+        android:src="@drawable/ic_sunny"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

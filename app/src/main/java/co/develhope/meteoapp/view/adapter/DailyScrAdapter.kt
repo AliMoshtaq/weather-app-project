@@ -9,6 +9,7 @@ import co.develhope.meteoapp.databinding.DailyHourlyItemBinding
 import co.develhope.meteoapp.databinding.DailyTitleItemBinding
 import co.develhope.meteoapp.model.DailyScreenItems
 import co.develhope.meteoapp.model.ForecastModel
+import co.develhope.meteoapp.utility.PrefManager
 import co.develhope.meteoapp.utility.prefs
 import org.threeten.bp.OffsetDateTime
 
@@ -16,8 +17,9 @@ class DailyScrAdapter(private val newList: List<DailyScreenItems>) : // Define t
     RecyclerView.Adapter<RecyclerView.ViewHolder>() { // Extend the RecyclerView.Adapter class
 
     private var expandedPosition = -1
+
     companion object { // Define a companion object
-        const val HOURLY_TITLE    = 0 // Define a constant for the hourly title item type
+        const val HOURLY_TITLE = 0 // Define a constant for the hourly title item type
         const val HOURLY_FORECAST = 1 // Define a constant for the hourly forecast item type
     }
 
@@ -48,7 +50,7 @@ class DailyScrAdapter(private val newList: List<DailyScreenItems>) : // Define t
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is DailyTitleViewHolder -> holder.bind(newList[position] as DailyScreenItems.Title)
+            is DailyTitleViewHolder -> holder.bind(newList[position] as DailyScreenItems.Title, prefs)
             is DailyHourlyViewHolder -> {
                 val hourlyForecast = newList[position] as DailyScreenItems.HourlyForecast
                 holder.bind(hourlyForecast)
@@ -68,7 +70,8 @@ class DailyScrAdapter(private val newList: List<DailyScreenItems>) : // Define t
 
                             expandedPosition = if (newExpanded) {
                                 val newRotationAngle = 180f
-                                arrowIcon.animate().rotation(newRotationAngle).setDuration(200).start()
+                                arrowIcon.animate().rotation(newRotationAngle).setDuration(200)
+                                    .start()
                                 currentPosition
                             } else {
                                 -1
@@ -85,55 +88,50 @@ class DailyScrAdapter(private val newList: List<DailyScreenItems>) : // Define t
         }
     }
 
-    override fun getItemViewType(position: Int): Int { // Override the getItemViewType method to return the corresponding item type for the given position
-        return when (newList[position]) { // Use a when expression to determine the data type and return the appropriate item type
-            is DailyScreenItems.Title          -> HOURLY_TITLE // If it's a title item, return the title item type
-            is DailyScreenItems.HourlyForecast -> HOURLY_FORECAST // If it's a forecast item, return the forecast item type
+    override fun getItemViewType(position: Int): Int {
+        return when (newList[position]) {
+            is DailyScreenItems.Title -> HOURLY_TITLE
+            is DailyScreenItems.HourlyForecast -> HOURLY_FORECAST
         }
     }
 
-    override fun getItemCount(): Int { // Override the getItemCount method to return the number of items in the list
+    override fun getItemCount(): Int {
         return newList.size
     }
 
     class DailyTitleViewHolder(private val binding: DailyTitleItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(title: DailyScreenItems.Title) {
+        fun bind(title: DailyScreenItems.Title, prefs: PrefManager) {
             with(binding) {
-                // Set the day of week text using the setDayOfWeek method from the ForecastModel class
-                dayOfWeek.text = ForecastModel.setDayOfWeek(title.date.dayOfWeek.toString())
+                val dayOfWeekString = title.date.dayOfWeek.toString()
+                    .lowercase()
+                    .replaceFirstChar { it.uppercase() } // Capitalize the first letter of the day of week string
 
-                // Set the daily date text using a string resource and the setMonthOfYear method from the ForecastModel class
+                dayOfWeek.text = dayOfWeekString
                 dailyDateTxt.text = itemView.context.getString(
                     R.string.daily_date,
-                    title.date.dayOfWeek.toString().lowercase()
-                        .replaceFirstChar { it.uppercase() }, // Capitalize the first letter of the day of week string
+                    dayOfWeekString,
                     title.date.dayOfMonth,
                     ForecastModel.setMonthOfYear(title.date.month.toString())
                 )
-
-                // Set the day title text using a string resource and the prefs object for accessing app preferences
                 dayTitle.text = itemView.context.getString(
                     R.string.palermo_sic,
                     prefs.cityPref,
                     prefs.countryPref
                 )
-
-                // Set the daily description text using the setDescription method from the ForecastModel class
                 dailyDescriptionTxt.text = ForecastModel.setDescription(title.description)
             }
         }
     }
 
 
+
     class DailyHourlyViewHolder(val binding: DailyHourlyItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(hourlyForecast: DailyScreenItems.HourlyForecast) {
             with(binding) {
-                val time =
-                    OffsetDateTime.now() // Replace with the appropriate time for the forecast item
-
+                val time = OffsetDateTime.now()
                 dayHour2.text = itemView.context.getString(
                     R.string.daily_hour_second,
                     hourlyForecast.dailyForecast.date.hour

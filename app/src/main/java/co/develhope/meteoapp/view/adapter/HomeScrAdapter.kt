@@ -74,31 +74,31 @@ class HomeScrAdapter(
                 itemView.setOnClickListener {
                     clickListener.viewDailyScreen(forecastItem, forecastItem.weeklyForecast.date)
                 }
-                tvDate.text = itemView.context.getString(
+                tvDate.text             = itemView.context.getString(
                     R.string.tv_date,
                     forecastItem.weeklyForecast.date.dayOfMonth,
                     forecastItem.weeklyForecast.date.monthValue
                 )
-                tvGradeMax.text = itemView.context.getString(
+                tvGradeMax.text         = itemView.context.getString(
                     R.string.tv_grade_max,
                     forecastItem.weeklyForecast.maxTemp
                 )
-                tvGradeMin.text = itemView.context.getString(
+                tvGradeMin.text         = itemView.context.getString(
                     R.string.tv_grade_min,
                     forecastItem.weeklyForecast.minTemp
                 )
-                tvPrecipitation.text = itemView.context.getString(
+                tvPrecipitation.text    = itemView.context.getString(
                     R.string.tv_precip_num,
                     forecastItem.weeklyForecast.precipitation
                 )
-                tvSpeed.text = itemView.context.getString(
+                tvSpeed.text            = itemView.context.getString(
                     R.string.tv_kmh,
                     forecastItem.weeklyForecast.wind
                 )
-                tvToday.text =
+                tvToday.text            =
                     ForecastModel.setDayOfWeek(forecastItem.weeklyForecast.date.dayOfWeek.name)
 
-                val time = OffsetDateTime.now() // Replace with the appropriate time for the forecast item
+                val time                = forecastItem.weeklyForecast.date // Replace with the appropriate time for the forecast item
                 icCloudy.setImageResource(ForecastModel.setIcon(forecastItem.weeklyForecast.weather, time))
             }
         }

@@ -15,35 +15,36 @@ object ForecastModel {
 
     // Function to set the icon for a given weather description
     fun setIcon(weather: WeatherDescription, time: OffsetDateTime): Int {
-        return when (weather){
-            // Return the appropriate resource ID for each type of weather
-//            WeatherDescription.CLEAR_SKY       -> R.drawable.ic_sun
-//            WeatherDescription.FOGGY           -> R.drawable.ic_sun_cloud
-//            WeatherDescription.PARTLY_CLOUDY   -> R.drawable.ic_sun_cloud
-//            WeatherDescription.DENSE_INTENSITY -> R.drawable.ic_raining
-//            WeatherDescription.RAINY           -> R.drawable.ic_raining
-//            WeatherDescription.HEAVY_INTENSITY -> R.drawable.ic_raining
-//            WeatherDescription.FREEZING_RAIN   -> R.drawable.ic_raining
-//            WeatherDescription.SNOW_FALL       -> R.drawable.ic_raining
-//            WeatherDescription.SNOW_GRAINS     -> R.drawable.ic_raining
-//            WeatherDescription.RAIN_SHOWERS    -> R.drawable.ic_raining
-//            WeatherDescription.HEAVY_SNOW      -> R.drawable.ic_raining
-//            WeatherDescription.THUNDERSTORM    -> R.drawable.ic_raining
-//            WeatherDescription.HEAVY_HAIL      -> R.drawable.ic_raining
-            WeatherDescription.CLEAR_SKY -> if (isDaytime(time)) R.drawable.ic_sun else R.drawable.ic_fluent_moon
-            WeatherDescription.FOGGY, WeatherDescription.PARTLY_CLOUDY, WeatherDescription.RAINY,
-            WeatherDescription.DENSE_INTENSITY, WeatherDescription.FREEZING_RAIN, WeatherDescription.SNOW_FALL,
-            WeatherDescription.SNOW_GRAINS, WeatherDescription.RAIN_SHOWERS, WeatherDescription.HEAVY_SNOW,
-            WeatherDescription.THUNDERSTORM, WeatherDescription.HEAVY_HAIL, WeatherDescription.HEAVY_INTENSITY ->
-                R.drawable.ic_raining
+        return when (weather) {
+            WeatherDescription.CLEAR_SKY ->
+                if (isDaytime(time)) R.drawable.ic_sunny else R.drawable.ic_moon
+            WeatherDescription.PARTLY_CLOUDY,
+            WeatherDescription.CLOUDY           -> R.drawable.ic_partly_cloudy
+            WeatherDescription.FOG              -> R.drawable.ic_foggy
+            WeatherDescription.LIGHT_RAIN,
+            WeatherDescription.MODERATE_RAIN,
+            WeatherDescription.HEAVY_RAIN,
+            WeatherDescription.LIGHT_SHOWER,
+            WeatherDescription.HEAVY_SHOWER     -> R.drawable.ic_rain
+            WeatherDescription.FREEZING_RAIN    -> R.drawable.ic_freezing_rain
+            WeatherDescription.LIGHT_SNOW,
+            WeatherDescription.MODERATE_SNOW,
+            WeatherDescription.HEAVY_SNOW       -> R.drawable.ic_snow
+            WeatherDescription.SLEET            -> R.drawable.ic_sleet
+            WeatherDescription.THUNDERSTORM     -> R.drawable.ic_thunderstorm
+            WeatherDescription.UNKNOWN          -> R.drawable.ic_sunny
         }
     }
+
+
+
     // Helper function to determine whether a given time is during the day or night
     private fun isDaytime(time: OffsetDateTime): Boolean {
         val sunrise = time.with(LocalTime.of(6, 0))
         val sunset = time.with(LocalTime.of(18, 0))
         return time.isAfter(sunrise) && time.isBefore(sunset)
     }
+
 
     // Function to set the day of the week based on a string input
     fun setDayOfWeek(dayOfWeek: String): String {
@@ -65,20 +66,22 @@ object ForecastModel {
     // Function to set the description based on a weather description input
     fun setDescription(weatherDescription: WeatherDescription): String {
         return when (weatherDescription) {
-            // Return the appropriate string for each type of weather
-            WeatherDescription.CLEAR_SKY       -> "Clear"
-            WeatherDescription.FOGGY           -> "Foggy"
-            WeatherDescription.PARTLY_CLOUDY   -> "Cloudy"
-            WeatherDescription.DENSE_INTENSITY -> "Dense Intensity"
-            WeatherDescription.RAINY           -> "Rainy"
-            WeatherDescription.HEAVY_INTENSITY -> "Heavy Intensity"
-            WeatherDescription.FREEZING_RAIN   -> "Freezing Rain"
-            WeatherDescription.SNOW_FALL       -> "Snow Fall"
-            WeatherDescription.SNOW_GRAINS     -> "Snow Grains"
-            WeatherDescription.RAIN_SHOWERS    -> "Rain Shower"
-            WeatherDescription.HEAVY_SNOW      -> "Heavy Snow"
+            WeatherDescription.CLEAR_SKY       -> "Clear sky"
+            WeatherDescription.PARTLY_CLOUDY   -> "Partly cloudy"
+            WeatherDescription.CLOUDY          -> "Cloudy"
+            WeatherDescription.FOG             -> "Foggy"
+            WeatherDescription.LIGHT_RAIN      -> "Light rain"
+            WeatherDescription.MODERATE_RAIN   -> "Moderate rain"
+            WeatherDescription.HEAVY_RAIN      -> "Heavy rain"
+            WeatherDescription.FREEZING_RAIN   -> "Freezing rain"
+            WeatherDescription.LIGHT_SNOW      -> "Light snow"
+            WeatherDescription.MODERATE_SNOW   -> "Moderate snow"
+            WeatherDescription.HEAVY_SNOW      -> "Heavy snow"
+            WeatherDescription.SLEET           -> "Sleet"
+            WeatherDescription.LIGHT_SHOWER    -> "Light rain shower"
+            WeatherDescription.HEAVY_SHOWER    -> "Heavy rain shower"
             WeatherDescription.THUNDERSTORM    -> "Thunderstorm"
-            WeatherDescription.HEAVY_HAIL      -> "Heavy Hail"
+            else                               -> "Unknown weather condition"
         }
     }
 
