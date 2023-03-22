@@ -48,20 +48,30 @@ object ForecastModel {
 
     // Function to set the day of the week based on a string input
     fun setDayOfWeek(dayOfWeek: String): String {
+        val today = LocalDate.now().dayOfWeek.toString()
+            .lowercase()
+            .replaceFirstChar { it.uppercase() }
+        val tomorrow = LocalDate.now().plusDays(1).dayOfWeek.toString()
+            .lowercase()
+            .replaceFirstChar { it.uppercase() }
+
         return when (dayOfWeek) {
             // Return the appropriate string for each day of the week
-            LocalDate.now().dayOfWeek.toString()                -> "Today"
-            LocalDate.now().dayOfWeek.plus(1).toString()   -> "Tomorrow"
-            "MONDAY"        -> "Monday"
-            "TUESDAY"       -> "Tuesday"
-            "WEDNESDAY"     -> "Wednesday"
-            "THURSDAY"      -> "Thursday"
-            "FRIDAY"        -> "Friday"
-            "SATURDAY"      -> "Saturday"
-            "SUNDAY"        -> "Sunday"
-            else            -> "Unknown"
+            today -> "Today"
+            tomorrow -> "Tomorrow"
+            else -> dayOfWeek
         }
     }
+
+    fun getOrdinalSuffix(day: Int): String {
+        return when (day % 10) {
+            1 -> if (day == 11) "th" else "st"
+            2 -> if (day == 12) "th" else "nd"
+            3 -> if (day == 13) "th" else "rd"
+            else -> "th"
+        }
+    }
+
 
     // Function to set the description based on a weather description input
     fun setDescription(weatherDescription: WeatherDescription): String {

@@ -33,7 +33,7 @@
     <string name="daily_cloud_cover">Cloud cover</string>
     <string name="daily_perceived">Perceived</string>
     <string name="daily_humidity_percent">%d%%</string>
-    <string name="daily_date">%s  %d  %s</string>
+    <string name="daily_date">%1$s %2$d%3$s of %4$s</string>
     <string name="daily_situation">Today</string>
     <string name="daily_temp_grade">%d\u00B0</string>
     <string name="daily_humidity_grade">%d%%</string>

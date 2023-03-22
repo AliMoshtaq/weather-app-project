@@ -1,5 +1,9 @@
 package co.develhope.meteoapp.view.adapter // Define the package name
 
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.RelativeSizeSpan
+import android.text.style.SuperscriptSpan
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -9,6 +13,7 @@ import co.develhope.meteoapp.databinding.DailyHourlyItemBinding
 import co.develhope.meteoapp.databinding.DailyTitleItemBinding
 import co.develhope.meteoapp.model.DailyScreenItems
 import co.develhope.meteoapp.model.ForecastModel
+import co.develhope.meteoapp.model.ForecastModel.getOrdinalSuffix
 import co.develhope.meteoapp.utility.PrefManager
 import co.develhope.meteoapp.utility.prefs
 import org.threeten.bp.OffsetDateTime
@@ -62,7 +67,7 @@ class DailyScrAdapter(private val newList: List<DailyScreenItems>) : // Define t
 
                     if (currentPosition == 1) {
                         val isExpanded = currentPosition == expandedPosition
-                        val rotationAngle = if (isExpanded) 180f else 0f
+                        val rotationAngle = if (isExpanded) 0f else 180f
                         arrowIcon.rotation = rotationAngle
 
                         arrowIcon.setOnClickListener {
@@ -104,17 +109,42 @@ class DailyScrAdapter(private val newList: List<DailyScreenItems>) : // Define t
 
         fun bind(title: DailyScreenItems.Title, prefs: PrefManager) {
             with(binding) {
-                val dayOfWeekString = ForecastModel.setDayOfWeek(title.date.dayOfWeek.toString()) // Call setDayOfWeek function here
+                val dayOfWeekString = title.date.dayOfWeek.toString()
                     .lowercase()
                     .replaceFirstChar { it.uppercase() } // Capitalize the first letter of the day of week string
 
-                dayOfWeek.text = dayOfWeekString
-                dailyDateTxt.text = itemView.context.getString(
+                val dayDescription = ForecastModel.setDayOfWeek(dayOfWeekString)
+
+                dayOfWeek.text = dayDescription
+
+                val dayOfMonth = title.date.dayOfMonth
+                val ordinalSuffix = getOrdinalSuffix(dayOfMonth)
+                val dateString = itemView.context.getString(
                     R.string.daily_date,
                     dayOfWeekString,
-                    title.date.dayOfMonth,
+                    dayOfMonth,
+                    ordinalSuffix,
                     ForecastModel.setMonthOfYear(title.date.month.toString())
                 )
+
+                val spannableStringBuilder = SpannableStringBuilder(dateString)
+                val startIndex = dateString.indexOf(ordinalSuffix)
+                val endIndex = startIndex + ordinalSuffix.length
+                spannableStringBuilder.setSpan(
+                    RelativeSizeSpan(0.7f),
+                    startIndex,
+                    endIndex,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+                spannableStringBuilder.setSpan(
+                    SuperscriptSpan(),
+                    startIndex,
+                    endIndex,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+
+                dailyDateTxt.text = spannableStringBuilder
+
                 dayTitle.text = itemView.context.getString(
                     R.string.palermo_sic,
                     prefs.cityPref,
@@ -124,6 +154,8 @@ class DailyScrAdapter(private val newList: List<DailyScreenItems>) : // Define t
             }
         }
     }
+
+
 
 
 
@@ -142,36 +174,36 @@ class DailyScrAdapter(private val newList: List<DailyScreenItems>) : // Define t
                         time
                     )
                 )
-                dayGrade.text = itemView.context.getString(
+                dayGrade.text                       = itemView.context.getString(
                     R.string.daily_temp_grade,
                     hourlyForecast.dailyForecast.temperature
                 )
-                dayHumidityGrade.text = itemView.context.getString(
+                dayHumidityGrade.text               = itemView.context.getString(
                     R.string.daily_humidity_percent,
                     hourlyForecast.dailyForecast.rainfall
                 )
-                dailyCardHumidityGrade.text = itemView.context.getString(
+                dailyCardHumidityGrade.text         = itemView.context.getString(
                     R.string.daily_humidity_grade,
                     hourlyForecast.dailyForecast.humidity
                 )
-                dailyCardPrecipitationGrade.text = itemView.context.getString(
+                dailyCardPrecipitationGrade.text    = itemView.context.getString(
                     R.string.daily_precipitation_grade,
                     hourlyForecast.dailyForecast.precip
                 )
-                dailyCardCoverageGrade.text = itemView.context.getString(
+                dailyCardCoverageGrade.text         = itemView.context.getString(
                     R.string.daily_coverage_grade,
                     hourlyForecast.dailyForecast.coverage
                 )
-                dailyCardRainGrade.text = itemView.context.getString(
+                dailyCardRainGrade.text             = itemView.context.getString(
                     R.string.daily_rain_grade,
                     hourlyForecast.dailyForecast.rain
                 )
-                dailyCardWindSpeedGrade.text = itemView.context.getString(
+                dailyCardWindSpeedGrade.text        = itemView.context.getString(
                     R.string.daily_wind_speed,
                     hourlyForecast.dailyForecast.windDirection,
                     hourlyForecast.dailyForecast.wind
                 )
-                dailyCardUvIndexGrade.text = itemView.context.getString(
+                dailyCardUvIndexGrade.text          = itemView.context.getString(
                     R.string.daily_cloudCover_grade,
                     hourlyForecast.dailyForecast.index
                 )
