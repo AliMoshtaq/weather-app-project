@@ -13,9 +13,18 @@ data class DailyForecast(
     val wind            : Int,
     val coverage        : Int,
     val windDirection   : WindDirection,
-    val rain            : Int
+    val rain            : Int,
+    val sunrise         : OffsetDateTime, // Add the sunrise property
+    val sunset          : OffsetDateTime  // Add the sunset property
 )
+
 sealed class DailyScreenItems {
-    data class HourlyForecast(val dailyForecast: DailyForecast)                                                                     : DailyScreenItems()
-    data class Title         (val date: OffsetDateTime, val city: String, val region: String, val description: WeatherDescription)  : DailyScreenItems()
+    data class HourlyForecast(val dailyForecast: DailyForecast
+    ): DailyScreenItems()
+    data class Title         (val date: OffsetDateTime,
+                              val city: String,
+                              val region: String,
+                              val description: WeatherDescription,
+                              val weatherCode: Int
+    ): DailyScreenItems()
 }

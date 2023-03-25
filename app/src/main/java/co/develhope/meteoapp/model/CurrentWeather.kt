@@ -6,4 +6,7 @@ data class CurrentWeather(
     var winddirection   : Int,
     var weathercode     : Int,
     var time            : String
-)
+){
+    val weatherDescription: WeatherDescription
+        get() = weathercode.getWeatherDescription()
+}

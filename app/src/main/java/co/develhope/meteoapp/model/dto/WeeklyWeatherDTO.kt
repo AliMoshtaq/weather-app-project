@@ -34,10 +34,6 @@ data class WeeklyWeatherDTO(
         val precipitationSum: List<Double>,
         @SerializedName("rain_sum")
         val rainSum: List<Double>,
-        @SerializedName("sunrise")
-        val sunrise: List<String>,
-        @SerializedName("sunset")
-        val sunset: List<String>,
         @SerializedName("temperature_2m_max")
         val temperature2mMax: List<Double>,
         @SerializedName("temperature_2m_min")
@@ -52,12 +48,12 @@ data class WeeklyWeatherDTO(
         fun mapToDomain(): List<WeeklyForecast> {
             return this.time.mapIndexed { index, date ->
                 WeeklyForecast(
-                    date =          date,
-                    minTemp =       this.temperature2mMin.getOrNull(index)?.toInt() ?: 0,
-                    maxTemp =       this.temperature2mMax.getOrNull(index)?.toInt() ?: 0,
+                    date          = date,
+                    minTemp       = this.temperature2mMin.getOrNull(index)?.toInt() ?: 0,
+                    maxTemp       = this.temperature2mMax.getOrNull(index)?.toInt() ?: 0,
                     precipitation = this.precipitationSum.getOrNull(index)?.toInt() ?: 0,
-                    wind =          this.windspeed10mmax.getOrNull(index)?.toInt() ?: 0,
-                    weather =       this.weathercode.getOrNull(index)?.getWeatherDescription() ?: WeatherDescription.CLEAR_SKY
+                    wind          = this.windspeed10mmax.getOrNull(index)?.toInt() ?: 0,
+                    weather       = this.weathercode.getOrNull(index)?.getWeatherDescription() ?: WeatherDescription.CLEAR_SKY
                 )
             }
         }

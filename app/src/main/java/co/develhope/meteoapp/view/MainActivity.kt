@@ -5,11 +5,19 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.LayerDrawable
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
+import android.view.LayoutInflater
 import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -21,6 +29,7 @@ import co.develhope.meteoapp.model.ForecastModel
 import co.develhope.meteoapp.utility.LOCATION_REQUEST
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import org.threeten.bp.LocalDate
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,7 +47,46 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnItemSelectedListener {
             setBottomBarClick(it)
         }
+        updateMenuItems()
         replaceFragment(HomeScrFragment())
+    }
+
+    private fun updateMenuItems() {
+        val today = LocalDate.now().dayOfMonth
+        val tomorrow = LocalDate.now().plusDays(1).dayOfMonth
+
+        val todayMenuItem = binding.bottomNavigation.menu.findItem(R.id.today_fragment)
+        val tomorrowMenuItem = binding.bottomNavigation.menu.findItem(R.id.tomorrow_fragment)
+
+        val todayIcon = todayMenuItem.icon
+        val tomorrowIcon = tomorrowMenuItem.icon
+
+        val todayBadge = createBadgeDrawable(this, today.toString())
+        val tomorrowBadge = createBadgeDrawable(this, tomorrow.toString())
+
+        val todayLayerDrawable = LayerDrawable(arrayOf(todayIcon, todayBadge))
+        val tomorrowLayerDrawable = LayerDrawable(arrayOf(tomorrowIcon, tomorrowBadge))
+
+        todayMenuItem.icon = todayLayerDrawable
+        tomorrowMenuItem.icon = tomorrowLayerDrawable
+    }
+
+    @SuppressLint("InflateParams")
+    private fun createBadgeDrawable(context: Context, count: String): Drawable {
+        val badge = LayoutInflater.from(context).inflate(R.layout.menu_badge, null)
+        val text = badge.findViewById<TextView>(R.id.badge_text)
+        text.text = count
+
+        badge.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED))
+        badge.layout(0, 0, badge.measuredWidth, badge.measuredHeight)
+
+        val bitmap = Bitmap.createBitmap(
+            badge.measuredWidth, badge.measuredHeight, Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(bitmap)
+        badge.draw(canvas)
+
+        return BitmapDrawable(context.resources, bitmap)
     }
 
     private fun setBottomBarClick(item: MenuItem): Boolean {

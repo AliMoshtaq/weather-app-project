@@ -14,9 +14,10 @@ import co.develhope.meteoapp.databinding.DailyTitleItemBinding
 import co.develhope.meteoapp.model.DailyScreenItems
 import co.develhope.meteoapp.model.ForecastModel
 import co.develhope.meteoapp.model.ForecastModel.getOrdinalSuffix
+import co.develhope.meteoapp.model.ForecastModel.setDescription
+import co.develhope.meteoapp.model.getWeatherDescription
 import co.develhope.meteoapp.utility.PrefManager
 import co.develhope.meteoapp.utility.prefs
-import org.threeten.bp.OffsetDateTime
 
 class DailyScrAdapter(private val newList: List<DailyScreenItems>) : // Define the adapter class and its input list
     RecyclerView.Adapter<RecyclerView.ViewHolder>() { // Extend the RecyclerView.Adapter class
@@ -150,7 +151,10 @@ class DailyScrAdapter(private val newList: List<DailyScreenItems>) : // Define t
                     prefs.cityPref,
                     prefs.countryPref
                 )
-                dailyDescriptionTxt.text = ForecastModel.setDescription(title.description)
+                // Assuming 'title.weatherCode' is the integer weather code from the API
+                val weatherDescription = title.weatherCode.getWeatherDescription()
+                val weatherDescriptionString = setDescription(weatherDescription)
+                dailyDescriptionTxt.text = weatherDescriptionString
             }
         }
     }
@@ -163,7 +167,9 @@ class DailyScrAdapter(private val newList: List<DailyScreenItems>) : // Define t
         RecyclerView.ViewHolder(binding.root) {
         fun bind(hourlyForecast: DailyScreenItems.HourlyForecast) {
             with(binding) {
-                val time = OffsetDateTime.now()
+                val sunrise = hourlyForecast.dailyForecast.sunrise
+                val sunset  = hourlyForecast.dailyForecast.sunset
+                val forecastTime = hourlyForecast.dailyForecast.date // Use forecast time instead of the current time
                 dayHour2.text = itemView.context.getString(
                     R.string.daily_hour_second,
                     hourlyForecast.dailyForecast.date.hour
@@ -171,7 +177,7 @@ class DailyScrAdapter(private val newList: List<DailyScreenItems>) : // Define t
                 dailyIcon.setImageResource(
                     ForecastModel.setIcon(
                         hourlyForecast.dailyForecast.weather,
-                        time
+                        forecastTime, sunrise, sunset
                     )
                 )
                 dayGrade.text                       = itemView.context.getString(

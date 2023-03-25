@@ -2,7 +2,6 @@ package co.develhope.meteoapp.model
 
 import co.develhope.meteoapp.R
 import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalTime
 import org.threeten.bp.OffsetDateTime
 import java.util.*
 
@@ -14,37 +13,57 @@ object ForecastModel {
     private var selectedTomorrowDetails : WeeklyForecast? = null
 
     // Function to set the icon for a given weather description
-    fun setIcon(weather: WeatherDescription, time: OffsetDateTime): Int {
+    fun setIcon(weather: WeatherDescription, time: OffsetDateTime, sunrise: OffsetDateTime, sunset: OffsetDateTime): Int {
         return when (weather) {
             WeatherDescription.CLEAR_SKY ->
-                if (isDaytime(time)) R.drawable.ic_sunny else R.drawable.ic_moon
-            WeatherDescription.PARTLY_CLOUDY,
-            WeatherDescription.CLOUDY           -> R.drawable.ic_partly_cloudy
+                if (isDaytime(time, sunrise, sunset)) R.drawable.ic_sunny else R.drawable.ic_moon
+            WeatherDescription.PARTLY_CLOUDY ->
+                if (isDaytime(time, sunrise, sunset)) R.drawable.ic_partly_cloudy_day else R.drawable.ic_partly_cloudy_night
+
+            WeatherDescription.CLOUDY           -> R.drawable.ic_cloudy
             WeatherDescription.FOG              -> R.drawable.ic_foggy
-            WeatherDescription.LIGHT_RAIN,
-            WeatherDescription.MODERATE_RAIN,
+            WeatherDescription.LIGHT_RAIN       -> R.drawable.ic_light_rain
+            WeatherDescription.MODERATE_RAIN    -> R.drawable.ic_moderate_rain
             WeatherDescription.HEAVY_RAIN,
-            WeatherDescription.LIGHT_SHOWER,
-            WeatherDescription.HEAVY_SHOWER     -> R.drawable.ic_rain
+            WeatherDescription.LIGHT_SHOWER     -> R.drawable.ic_light_shower
+            WeatherDescription.HEAVY_SHOWER     -> R.drawable.ic_heavy_shower
             WeatherDescription.FREEZING_RAIN    -> R.drawable.ic_freezing_rain
-            WeatherDescription.LIGHT_SNOW,
+            WeatherDescription.LIGHT_SNOW       -> R.drawable.ic_light_snow
             WeatherDescription.MODERATE_SNOW,
-            WeatherDescription.HEAVY_SNOW       -> R.drawable.ic_snow
+            WeatherDescription.HEAVY_SNOW       -> R.drawable.ic_moderate_snow
             WeatherDescription.SLEET            -> R.drawable.ic_sleet
-            WeatherDescription.THUNDERSTORM     -> R.drawable.ic_thunderstorm
+            WeatherDescription.THUNDERSTORM     -> R.drawable.ic_thunder_storm
             WeatherDescription.UNKNOWN          -> R.drawable.ic_sunny
+        }
+    }
+    // Function to set the icon for a given weather description without considering the time of day
+    fun setDayIcon(weather: WeatherDescription): Int {
+        return when (weather) {
+            WeatherDescription.CLEAR_SKY       -> R.drawable.ic_sunny
+            WeatherDescription.PARTLY_CLOUDY   -> R.drawable.ic_partly_cloudy_day
+            WeatherDescription.CLOUDY          -> R.drawable.ic_cloudy
+            WeatherDescription.FOG             -> R.drawable.ic_foggy
+            WeatherDescription.LIGHT_RAIN      -> R.drawable.ic_light_rain
+            WeatherDescription.MODERATE_RAIN   -> R.drawable.ic_moderate_rain
+            WeatherDescription.HEAVY_RAIN      -> R.drawable.ic_light_shower
+            WeatherDescription.LIGHT_SHOWER    -> R.drawable.ic_light_shower
+            WeatherDescription.HEAVY_SHOWER    -> R.drawable.ic_heavy_shower
+            WeatherDescription.FREEZING_RAIN   -> R.drawable.ic_freezing_rain
+            WeatherDescription.LIGHT_SNOW      -> R.drawable.ic_light_snow
+            WeatherDescription.MODERATE_SNOW   -> R.drawable.ic_moderate_snow
+            WeatherDescription.HEAVY_SNOW      -> R.drawable.ic_moderate_snow
+            WeatherDescription.SLEET           -> R.drawable.ic_sleet
+            WeatherDescription.THUNDERSTORM    -> R.drawable.ic_thunder_storm
+            WeatherDescription.UNKNOWN         -> R.drawable.ic_sunny
         }
     }
 
 
 
     // Helper function to determine whether a given time is during the day or night
-    private fun isDaytime(time: OffsetDateTime): Boolean {
-        val sunrise = time.with(LocalTime.of(6, 0))
-        val sunset = time.with(LocalTime.of(18, 0))
+    private fun isDaytime(time: OffsetDateTime, sunrise: OffsetDateTime, sunset: OffsetDateTime): Boolean {
         return time.isAfter(sunrise) && time.isBefore(sunset)
     }
-
 
     // Function to set the day of the week based on a string input
     fun setDayOfWeek(dayOfWeek: String): String {
@@ -55,11 +74,11 @@ object ForecastModel {
             .lowercase()
             .replaceFirstChar { it.uppercase() }
 
-        return when (dayOfWeek) {
+        return when (val formattedDayOfWeek = dayOfWeek.lowercase().replaceFirstChar { it.uppercase() }) {
             // Return the appropriate string for each day of the week
-            today -> "Today"
+            today    -> "Today"
             tomorrow -> "Tomorrow"
-            else -> dayOfWeek
+            else     -> formattedDayOfWeek
         }
     }
 
@@ -91,9 +110,10 @@ object ForecastModel {
             WeatherDescription.LIGHT_SHOWER    -> "Light rain shower"
             WeatherDescription.HEAVY_SHOWER    -> "Heavy rain shower"
             WeatherDescription.THUNDERSTORM    -> "Thunderstorm"
-            else                               -> "Unknown weather condition"
+            else                               -> "Sunny"
         }
     }
+
 
     // Function to set the month of the year based on a string input
     fun setMonthOfYear(month: String): String {

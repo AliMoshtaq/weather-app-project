@@ -119,7 +119,8 @@ class DailyScrFragment : Fragment() {
                 ForecastModel.getDailyForecastData()?.date ?: OffsetDateTime.now(),
                 "",
                 "",
-                WeatherDescription.PARTLY_CLOUDY
+                dailyForecastList.firstOrNull()?.weather ?: WeatherDescription.UNKNOWN,
+                weatherCode = dailyForecastList.firstOrNull()?.weather?.ordinal ?: -1
             )
         )
         // Add the hourly forecast items to the list
@@ -128,6 +129,8 @@ class DailyScrFragment : Fragment() {
         )
         return dailyScreenItemsList
     }
+
+
     private fun observeData() {
         viewModel.dailyDataListResult.observe(viewLifecycleOwner) { state ->
             when (state) {

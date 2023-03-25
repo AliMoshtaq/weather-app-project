@@ -50,4 +50,5 @@
     <dimen name="forecast_icon_marginTop">86dp</dimen>
     <dimen name="forecast_icon_marginStart">18dp</dimen>
     <!--  Bottom Navigation  -->
+    <dimen name="badge_text_size">6sp</dimen>
 </resources>

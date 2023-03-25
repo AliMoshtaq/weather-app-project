@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_grey"
+    android:background="@drawable/bg_daily_screen_hf"
     android:orientation="vertical"
     tools:context=".view.SearchScrFragment">
 
@@ -20,7 +20,8 @@
         android:iconifiedByDefault="false"
         android:queryBackground="@android:color/transparent"
         android:queryHint="Enter Location"
-        android:transitionName="Enter Location" />
+        android:textColorHint="@color/white"
+    android:transitionName="Enter Location" />
 
     <TextView
         android:id="@+id/tvRecentSearch"
@@ -29,7 +30,7 @@
         android:layout_marginStart="18dp"
         android:layout_marginTop="22dp"
         android:text="@string/search_recent_search"
-        android:textColor="@color/blue"
+        android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_bar" />

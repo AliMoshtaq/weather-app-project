@@ -8,7 +8,7 @@ data class WeeklyForecast(
     val precipitation   : Int,
     val wind            : Int,
     val date            : OffsetDateTime,
-    val weather         : WeatherDescription
+    val weather         : WeatherDescription,
 )
 
 sealed class HomeScreenItem {

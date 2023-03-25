@@ -9,21 +9,21 @@ enum class WeatherDescription {
 
 fun Int.getWeatherDescription(): WeatherDescription {
     return when (this) {
-        0           -> WeatherDescription.CLEAR_SKY
-        1,2,3       -> WeatherDescription.PARTLY_CLOUDY
-        45, 48      -> WeatherDescription.FOG
-        51, 53, 55  -> WeatherDescription.CLOUDY
-        56, 57      -> WeatherDescription.LIGHT_RAIN
-        61, 63, 65  -> WeatherDescription.MODERATE_RAIN
-        66, 67      -> WeatherDescription.HEAVY_RAIN
-        71, 73, 75  -> WeatherDescription.LIGHT_SNOW
-        77          -> WeatherDescription.SLEET
-        80, 81, 82  -> WeatherDescription.LIGHT_SHOWER
-        85, 86      -> WeatherDescription.HEAVY_SHOWER
-        95          -> WeatherDescription.THUNDERSTORM
-        else        -> WeatherDescription.UNKNOWN
+        0, 1, 2, 3      -> WeatherDescription.PARTLY_CLOUDY
+        45, 48          -> WeatherDescription.FOG
+        51, 53, 55      -> WeatherDescription.CLOUDY
+        56, 57          -> WeatherDescription.LIGHT_RAIN
+        61, 63, 65      -> WeatherDescription.MODERATE_RAIN
+        66, 67          -> WeatherDescription.HEAVY_RAIN
+        71, 73, 75      -> WeatherDescription.LIGHT_SNOW
+        77              -> WeatherDescription.SLEET
+        80, 81, 82      -> WeatherDescription.LIGHT_SHOWER
+        85, 86          -> WeatherDescription.HEAVY_SHOWER
+        95              -> WeatherDescription.THUNDERSTORM
+        else            -> WeatherDescription.UNKNOWN
     }
 }
+
 
 
 

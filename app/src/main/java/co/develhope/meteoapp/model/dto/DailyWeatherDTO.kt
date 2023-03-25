@@ -43,7 +43,7 @@ data class DailyWeatherDTO(
         fun mapToDomain(): List<DailyForecast> = time.mapIndexed { index, date ->
             DailyForecast(
                 date = date,
-                weather = weathercode.getOrNull(index)?.getWeatherDescription() ?: WeatherDescription.PARTLY_CLOUDY,
+                weather = weathercode.getOrNull(index)?.getWeatherDescription() ?: WeatherDescription.UNKNOWN,
                 temperature = temperature2m.getOrNull(index)?.toInt() ?: 0,
                 rainfall = showers.getOrNull(index)?.toInt() ?: 0,
                 humidity = relativeHumidity.getOrNull(index)?.toInt() ?: 0,
@@ -52,7 +52,9 @@ data class DailyWeatherDTO(
                 coverage = cloudcover.getOrNull(index)?.toInt() ?: 0,
                 windDirection = windDirection.getOrNull(index)?.getWindDirection() ?: WindDirection.N,
                 rain = rain.getOrNull(index)?.toInt() ?: 0,
-                index = cloudcover.getOrNull(index)?.toInt() ?: 0
+                index = cloudcover.getOrNull(index)?.toInt() ?: 0,
+                sunrise = date.withHour(6).withMinute(0),
+                sunset = date.withHour(18).withMinute(0)
             )
         }
     }

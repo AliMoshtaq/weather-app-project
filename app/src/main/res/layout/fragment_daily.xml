@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/sky_blue"
+    android:background="@drawable/bg_daily_screen_hf"
     tools:context=".view.DailyScrFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

@@ -312,8 +312,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_night_clear" />
-                            <entry key="sourceFile" value="C:\Users\ali70\OneDrive\Desktop\Weather App Projects\icon\new happy\ic_night_clear.svg" />
+                            <entry key="outputName" value="ic_partly_cloudy_night" />
+                            <entry key="sourceFile" value="C:\Users\ali70\OneDrive\Desktop\ic_partly_cloudy_night.svg" />
                           </map>
                         </option>
                       </PersistentState>
