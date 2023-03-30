@@ -85,7 +85,7 @@ object ForecastModel {
     fun getOrdinalSuffix(day: Int): String {
         return when (day % 10) {
             1 -> if (day == 11) "th" else "st"
-            2 -> if (day == 12) "th" else "nd"
+            2 -> if (day == 12) "th" else " nd"
             3 -> if (day == 13) "th" else "rd"
             else -> "th"
         }

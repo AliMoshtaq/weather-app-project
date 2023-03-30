@@ -18,9 +18,8 @@ class WeatherApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
         instance = this
-        prefs = PrefManager(applicationContext)
+        prefs    = PrefManager(applicationContext)
 
     }
 }

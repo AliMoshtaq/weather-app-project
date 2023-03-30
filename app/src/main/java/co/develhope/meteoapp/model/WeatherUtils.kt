@@ -1,5 +1,6 @@
 package co.develhope.meteoapp.model
 
+// Define an enum class to represent weather descriptions
 enum class WeatherDescription {
     CLEAR_SKY, PARTLY_CLOUDY, CLOUDY, FOG,
     LIGHT_RAIN, MODERATE_RAIN, HEAVY_RAIN, LIGHT_SHOWER, HEAVY_SHOWER,
@@ -7,7 +8,9 @@ enum class WeatherDescription {
     UNKNOWN
 }
 
+// Define an extension function for the Int class to get the corresponding weather description
 fun Int.getWeatherDescription(): WeatherDescription {
+    // Use a when expression to determine the weather description based on the input integer
     return when (this) {
         0, 1, 2, 3      -> WeatherDescription.PARTLY_CLOUDY
         45, 48          -> WeatherDescription.FOG
@@ -23,9 +26,6 @@ fun Int.getWeatherDescription(): WeatherDescription {
         else            -> WeatherDescription.UNKNOWN
     }
 }
-
-
-
 
 enum class WindDirection {
     N, NE, E, SE, S, SW, W, NW
